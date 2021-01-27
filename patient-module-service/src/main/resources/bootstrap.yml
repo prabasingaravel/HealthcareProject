@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: patient-module-api
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: config-client
+    vault:
+      scheme: http
+      kv: 
+        enabled: true
+      uri: http://localhost:8200
+      token: s.Gr4ofPnI2HB8THcs0APxzdON 
+    
+server:
+  port: 8081

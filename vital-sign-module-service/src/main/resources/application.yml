@@ -1,0 +1,6 @@
+vitalsign-module-api:
+  pulseRange: 60-100
+  bloodPressureRange: 100-120
+  temperatureRange: 80-100
+  bloodSugarRange: 90-120
+  respirationRateRange: 70-90
