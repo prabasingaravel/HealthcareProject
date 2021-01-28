@@ -10,7 +10,7 @@ spring:
       kv: 
         enabled: true
       uri: http://localhost:8200
-      token: s.Gr4ofPnI2HB8THcs0APxzdON 
+      token: s.RjK3oYH8tF6ZjodUzVGSnhu2
     
 server:
   port: 8082
