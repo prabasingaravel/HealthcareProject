@@ -27,7 +27,8 @@ public class VitalSignManager implements VitalSignService {
 		PatientVitalSignDto response = patientClient.getPatientDetailById(patientId);
 		if(response != null) {
 			PatientDto patientDetail = new PatientDto(response.getPatient().getPatientId(),
-					response.getPatient().getPatientName(),response.getPatient().getAge());
+					response.getPatient().getPatientName(),response.getPatient().getAge(),response.getPatient().getCreatedBy(),
+					response.getPatient().getCreatedAt(),response.getPatient().getUpdatedBy(),response.getPatient().getUpdateAt());
 			VitalSignDto vitalSigns = new VitalSignDto(response.getVitalsign().getPulse(),configuration.getPulseRange(),
 					response.getVitalsign().getBloodPressure(),configuration.getBloodPressureRange(),
 					response.getVitalsign().getWeight(),response.getVitalsign().getTemperature(),configuration.getTemperatureRange(),

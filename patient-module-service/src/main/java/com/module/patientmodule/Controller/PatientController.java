@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.module.patientmodule.Advice.TrackExecutionTime;
+import com.module.patientmodule.Advice.TrackLogging;
 import com.module.patientmodule.Dto.PatientVitalSignDto;
 import com.module.patientmodule.Service.PatientService;
 
@@ -34,6 +36,8 @@ public class PatientController {
 	
 	@ApiOperation(value = "Insert Patient Detail", response = PatientVitalSignDto.class)
 	@PostMapping(path="/entry",consumes= {"application/json"})
+	@TrackExecutionTime
+	@TrackLogging
 	public PatientVitalSignDto addPatient(@RequestBody PatientVitalSignDto patient) {
 		return patientService.addPatient(patient);
 	}
@@ -41,6 +45,8 @@ public class PatientController {
 	@ApiOperation(value = "Fetch Patient Detail", response = Iterable.class)
 	@GetMapping(path="/detail",produces= {"application/json"})
 	@Cacheable(value = "patient")
+	@TrackExecutionTime
+	@TrackLogging
 	public List<PatientVitalSignDto> getAllPatient() {
 		return patientService.getAllPatient();
 	}
@@ -55,6 +61,8 @@ public class PatientController {
 	@ApiOperation(value = "Update Patient Detail", response = PatientVitalSignDto.class)
 	@PutMapping(path="/update",consumes= {"application/json"})
 	@CachePut(value = "patient")
+	@TrackExecutionTime
+	@TrackLogging
 	public PatientVitalSignDto updatePatient(@RequestBody PatientVitalSignDto patient) {
 		return patientService.updatePatient(patient);
 	}

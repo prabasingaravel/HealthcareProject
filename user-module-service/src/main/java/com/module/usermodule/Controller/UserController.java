@@ -22,7 +22,6 @@ import com.module.usermodule.Dto.UserDto;
 import com.module.usermodule.Model.User;
 import com.module.usermodule.Service.PatientService;
 import com.module.usermodule.Service.UserService;
-import com.module.usermodule.Util.JwtUtil;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -31,16 +30,13 @@ import io.swagger.annotations.ApiOperation;
 public class UserController {
 
 	@Autowired
-	public UserController(JwtUtil jwtUtil, AuthenticationManager authenticationManager, UserService userService,
+	public UserController(AuthenticationManager authenticationManager, UserService userService,
 			PatientService patientService) {
 		super();
-		this.jwtUtil = jwtUtil;
 		this.authenticationManager = authenticationManager;
 		this.userService = userService;
 		this.patientService = patientService;
 	}
-
-	private final JwtUtil jwtUtil;
 
 	private final AuthenticationManager authenticationManager;
 

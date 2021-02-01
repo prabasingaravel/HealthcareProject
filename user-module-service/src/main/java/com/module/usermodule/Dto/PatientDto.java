@@ -2,6 +2,7 @@ package com.module.usermodule.Dto;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -24,4 +25,8 @@ public class PatientDto implements Serializable {
 	private String city;
 	private String maritalStatus;
 	private BigInteger contactNo;
+	private String createdBy;
+	private LocalDateTime createdAt;
+	private String updatedBy;
+	private LocalDateTime updateAt;
 }

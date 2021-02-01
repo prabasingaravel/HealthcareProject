@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.module.patientmodule.Advice.TrackExecutionTime;
+import com.module.patientmodule.Advice.TrackLogging;
 import com.module.patientmodule.Dto.PatientVitalSignDto;
 import com.module.patientmodule.Model.Patient;
 import com.module.patientmodule.Model.VitalSign;
@@ -68,6 +69,7 @@ public class PatientManager implements PatientService{
 		}
 	}
 	
+	@TrackLogging
 	public PatientVitalSignDto getPatientById(int patientId){
 		Patient patientInfo = patientRepo.getPatientInfo(patientId);
 		VitalSign vitalSigns = vitalSignRepo.getVitalSign(patientId);
