@@ -37,8 +37,9 @@ public class UserManager {
 	}
 	
 	public String deleteUser(long userId) {
-		if(userRepositary.findByUserId(userId) != null) {
-			userRepositary.delete(userRepositary.findByUserId(userId));
+		User user = userRepositary.findByUserId(userId);
+		if(user != null) {
+			userRepositary.delete(user);
 			return "User Information is deleted with id " + userId;
 		}else {
 			return "User Information not found for the id " + userId;
