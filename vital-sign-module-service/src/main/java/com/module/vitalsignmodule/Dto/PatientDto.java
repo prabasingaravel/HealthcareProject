@@ -1,20 +1,39 @@
 package com.module.vitalsignmodule.Dto;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * PatientDto represent patient table.
+ * @author Praba Singaravel
+ *
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PatientDto {
+public class PatientDto implements Serializable {
+	private static final long serialVersionUID = -1295019118314251665L;
 	private int patientId;
-	private String patientName;
+	private String patientFirstName;
+	private String patientLastName;
+	private Date dob;
 	private int age;
+	private String gender;
+	private String maritalStatus;
+	private long contactNo;
+	private String emailId;
+	private String address;
+	private long postalCode;
+	private String city;
+	private String country;
+	private Date regDate;
 	private String createdBy;
 	private LocalDateTime createdAt;
 	private String updatedBy;
-	private LocalDateTime updateAt;
+	private LocalDateTime updatedAt;
 }

@@ -2,11 +2,20 @@ package com.module.patientmodule.Advice;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * LoggingAdvice is used to print the log for controller method.
+ * @author Praba Singaravel
+ *
+ */
+@Aspect
+@Component
 public class LoggingAdvice {
 	
 	Logger logger = LoggerFactory.getLogger(LoggingAdvice.class);

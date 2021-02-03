@@ -21,6 +21,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * User which represent entity for user table.
+ * @author Praba Singaravel
+ *
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,27 +38,34 @@ public class User implements Serializable{
 	@Column(name="user_id")
 	@GeneratedValue(generator = "uuid")
 	private UUID userId;
+	
 	@Column(name="user_name")
 	@ApiModelProperty(notes = "Name of the user", name = "userName", required = true)
 	private String userName;
+	
 	@Column(name="password")
 	@ApiModelProperty(notes = "Password of the user", name = "password", required = true)
 	private String password;
-	@Column(name="role")
-	@ApiModelProperty(notes = "Role of the user", name = "role", required = true)
-	private String role;
+	
+	@Column(name="role_id")
+	@ApiModelProperty(notes = "Role Id of the user", name = "roleId", required = true)
+	private int roleId;
+	
 	@CreatedBy
 	@Column(name = "created_by")
 	@ApiModelProperty(notes = "user who created the entity", name = "createdBy", required = true)
 	private String createdBy;
+	
 	@CreatedDate
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
+	
 	@LastModifiedBy
 	@Column(name = "updated_by")
 	@ApiModelProperty(notes = "user who modified the entity", name = "updatedBy", required = true)
 	private String updatedBy;
+	
 	@LastModifiedDate
 	@Column(name = "updated_at")
-	private LocalDateTime updateAt;
+	private LocalDateTime updatedAt;
 }

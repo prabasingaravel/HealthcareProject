@@ -5,6 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import com.module.usermodule.Model.User;
 
+/**
+ * UserRepository is a repository for user table.
+ * @author Praba Singaravel
+ *
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 

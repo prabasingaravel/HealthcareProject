@@ -5,6 +5,11 @@ import java.util.Optional;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
 
+/**
+ * SystemLoggedInUser is used to update login user.
+ * @author Praba Singaravel
+ *
+ */
 @Component
 public class SystemLoggedInUser implements AuditorAware<String> {
 

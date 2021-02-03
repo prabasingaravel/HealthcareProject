@@ -17,11 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.module.patientmodule.Advice.TrackExecutionTime;
 import com.module.patientmodule.Advice.TrackLogging;
-import com.module.patientmodule.Dto.PatientVitalSignDto;
+import com.module.patientmodule.Dto.PatientDto;
 import com.module.patientmodule.Service.PatientService;
 
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * PatientController is used for patients end point.
+ * @author Praba Singaravel
+ *
+ */
 @RestController
 @RequestMapping("/patients")
 public class PatientController {
@@ -34,41 +39,65 @@ public class PatientController {
 	
 	private final PatientService patientService;
 	
-	@ApiOperation(value = "Insert Patient Detail", response = PatientVitalSignDto.class)
-	@PostMapping(path="/entry",consumes= {"application/json"})
+	/**
+	 * addPatient method is used to register patient.
+	 * @param patientDto
+	 * @return PatientDto
+	 */
+	@ApiOperation(value = "Insert Patient Detail", response = PatientDto.class)
+	@PostMapping(path="/",consumes= {"application/json"})
 	@TrackExecutionTime
 	@TrackLogging
-	public PatientVitalSignDto addPatient(@RequestBody PatientVitalSignDto patient) {
-		return patientService.addPatient(patient);
+	public PatientDto addPatient(@RequestBody PatientDto patientDto) {
+		return patientService.addPatient(patientDto);
 	}
 	
+	/**
+	 * getAllPatient method is used to fetch all patient details.
+	 * @return List
+	 */
 	@ApiOperation(value = "Fetch Patient Detail", response = Iterable.class)
-	@GetMapping(path="/detail",produces= {"application/json"})
+	@GetMapping(path="/",produces= {"application/json"})
 	@Cacheable(value = "patient")
 	@TrackExecutionTime
 	@TrackLogging
-	public List<PatientVitalSignDto> getAllPatient() {
+	public List<PatientDto> getAllPatient() {
 		return patientService.getAllPatient();
 	}
 	
-	@ApiOperation(value = "Fetch a specific Patient Detail", response = PatientVitalSignDto.class)
-	@GetMapping(path="/detail/{patientId}",produces= {"application/json"})
+	/**
+	 * getPatientById method is used to get specific patient detail.
+	 * @param patientId
+	 * @return PatientDto
+	 */
+	@ApiOperation(value = "Fetch a specific Patient Detail", response = PatientDto.class)
+	@GetMapping(path="/{patientId}",produces= {"application/json"})
 	@Cacheable(value = "patient", key = "#patientId")
-	public PatientVitalSignDto getPatientById(@PathVariable int patientId) {
+	public PatientDto getPatientById(@PathVariable int patientId) {
 		return patientService.getPatientById(patientId);
 	}
 	
-	@ApiOperation(value = "Update Patient Detail", response = PatientVitalSignDto.class)
-	@PutMapping(path="/update",consumes= {"application/json"})
+	/**
+	 * updatePatient method is used to update patient detail.
+	 * @param patientDto
+	 * @return PatientDto
+	 */
+	@ApiOperation(value = "Update Patient Detail", response = PatientDto.class)
+	@PutMapping(path="/",consumes= {"application/json"})
 	@CachePut(value = "patient")
 	@TrackExecutionTime
 	@TrackLogging
-	public PatientVitalSignDto updatePatient(@RequestBody PatientVitalSignDto patient) {
-		return patientService.updatePatient(patient);
+	public PatientDto updatePatient(@RequestBody PatientDto patientDto) {
+		return patientService.updatePatient(patientDto);
 	}
 	
+	/**
+	 * deletePatient method is used to delete patient detail.
+	 * @param patientId
+	 * @return String
+	 */
 	@ApiOperation(value = "Delete Patient Detail", response = String.class)
-	@DeleteMapping(path="/delete/{patientId}")
+	@DeleteMapping(path="/{patientId}")
 	@CacheEvict(value = "patient", key = "#patientId")
 	public String deletePatient(@PathVariable int patientId) {
 		return patientService.deletePatient(patientId);

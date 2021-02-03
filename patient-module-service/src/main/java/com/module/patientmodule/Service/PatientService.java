@@ -2,17 +2,22 @@ package com.module.patientmodule.Service;
 
 import java.util.List;
 
-import com.module.patientmodule.Dto.PatientVitalSignDto;
+import com.module.patientmodule.Dto.PatientDto;
 
+/**
+ * PatientService is used for patient table CRUD operation.
+ * @author Praba Singaravel
+ *
+ */
 public interface PatientService {
 	
-	public PatientVitalSignDto addPatient(PatientVitalSignDto patient);
+	public PatientDto addPatient(PatientDto patientDto);
 	
-	public List<PatientVitalSignDto> getAllPatient();
+	public List<PatientDto> getAllPatient();
 	
-	public PatientVitalSignDto updatePatient(PatientVitalSignDto patient);
+	public PatientDto updatePatient(PatientDto patientDto);
 	
-	public PatientVitalSignDto getPatientById(int patientId);
+	public PatientDto getPatientById(int patientId);
 	
 	public String deletePatient(int patientId);
 }

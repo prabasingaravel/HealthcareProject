@@ -12,6 +12,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+/**
+ * JwtUtil class used to generate customize Jwt token.
+ * @author Praba Singaravel
+ *
+ */
 @Service
 public class JwtUtil {
 
@@ -38,7 +43,7 @@ public class JwtUtil {
 		return extractExpiration(token).before(new Date());
 	}
 	
-	public static String generateToken(String username) {
+	public String generateToken(String username) {
 		Map<String,Object> claims = new HashMap<>();
 		return createToken(claims,username);
 	}

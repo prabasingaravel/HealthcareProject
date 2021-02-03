@@ -6,10 +6,15 @@ import org.springframework.stereotype.Repository;
 
 import com.module.patientmodule.Model.Patient;
 
+/**
+ * PatientRepository is a repository for patient table.
+ * @author Praba Singaravel
+ *
+ */
 @Repository
 @EnableJpaRepositories
 public interface PatientRepository extends JpaRepository<Patient, Integer>{
 
-	Patient getPatientInfo(int patientId);
-
+	Patient getPatientById(int patientId);
+	
 }
