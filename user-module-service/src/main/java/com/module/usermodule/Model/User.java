@@ -36,8 +36,8 @@ public class User implements Serializable{
 	private static final long serialVersionUID = -341894181636256969L;
 	@Id
 	@Column(name="user_id")
-	@GeneratedValue(generator = "uuid")
-	private UUID userId;
+	@GeneratedValue
+	private long userId;
 	
 	@Column(name="user_name")
 	@ApiModelProperty(notes = "Name of the user", name = "userName", required = true)

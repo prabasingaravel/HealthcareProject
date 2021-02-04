@@ -33,7 +33,6 @@ public class PatientController {
 	
 	@Autowired
 	public PatientController(PatientService patientService) {
-		super();
 		this.patientService = patientService;
 	}
 	

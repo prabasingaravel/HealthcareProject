@@ -12,7 +12,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableCaching
 @RefreshScope
 @EnableFeignClients("com.module.vitalsignmodule")
-@EnableDiscoveryClient
 @EnableJpaAuditing
 public class VitalSignModuleServiceApplication {
 

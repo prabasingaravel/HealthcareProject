@@ -49,7 +49,7 @@ public class PatientServiceImpl implements PatientService{
 	public PatientDto updatePatient(PatientDto patientDto){
 		Patient patient = patientRepository.getPatientById(patientDto.getPatientId());
 		if(patient != null) {
-			return PatientDto.ConvertPatientDto(patientRepository.save(patient));
+			return PatientDto.ConvertPatientDto(patientRepository.save(PatientDto.ConvertPatientDomain(patientDto)));
 		}else {
 			throw new ResourceNotFoundException("Patient Detail not found for the id " + patientDto.getPatientId());
 		}

@@ -43,7 +43,6 @@ public class VitalSign implements Serializable {
 	@Column(name = "user_name")
 	private String userName;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "checkup_date")
 	private Date checkupDate;
 	

@@ -37,7 +37,7 @@ public class VitalSignServiceImpl implements VitalSignService {
 	public VitalSignDto updateVitalSign(VitalSignDto vitalSignDto) {
 		VitalSign vitalSign = vitalSignRepository.findByPatientIdAndCheckupDate(vitalSignDto.getPatientId(), vitalSignDto.getCheckupDate());
 		if(vitalSign != null) {
-			return VitalSignDto.ConvertVitalSignDto(vitalSignRepository.save(vitalSign));
+			return VitalSignDto.ConvertVitalSignDto(vitalSignRepository.save(VitalSignDto.ConvertVitalSignDomain(vitalSignDto)));
 		}else {
 			throw new ResourceNotFoundException("Vital Sign not found for the id " + vitalSignDto.getPatientId());
 		}

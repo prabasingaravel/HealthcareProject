@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.module.usermodule.Dto.RoleDto;
 import com.module.usermodule.Dto.UserDto;
 import com.module.usermodule.ExceptionHandling.ResourceNotFoundException;
+import com.module.usermodule.Model.Role;
 import com.module.usermodule.Model.User;
 import com.module.usermodule.Repository.RoleRepository;
 import com.module.usermodule.Repository.UserRepository;
@@ -60,8 +61,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		} catch (Exception e) {
 			throw new Exception("invaild Username/Password");
 		}
-		UserDto user = UserDto.convertUserDto(userRepository.findByUserName(username));
-		RoleDto role = RoleDto.convertRoleDto(roleRepository.findByRoleId(user.getRoleId()));
+		User user = userRepository.findByUserName(username);
+		Role role = roleRepository.findByRoleId(user.getRoleId());
 		String token = jwtUtil.generateToken(username);
 		return "Welcome to "+ role.getRoleName() + " Dash board Mr/Ms : " + username + " Your Token is " + token;
 	}
@@ -97,7 +98,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	public UserDto updateUser(UserDto userDto) {
 		User user = userRepository.findByUserName(userDto.getUserName());
 		if(user != null) {
-			return UserDto.convertUserDto(userRepository.save(user));
+			return UserDto.convertUserDto(userRepository.save(UserDto.convertUserDomain(userDto)));
 		}else {
 			throw new ResourceNotFoundException("User Information not found for the name " + userDto.getUserName());
 		}

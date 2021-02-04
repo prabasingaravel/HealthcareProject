@@ -1,5 +1,6 @@
 package com.module.vitalsignmodule.Dto;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -17,7 +18,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VitalSignDto {
+public class VitalSignDto implements Serializable {
+	private static final long serialVersionUID = 6440156593513661186L;
 	private int patientId;
 	private String userName;
 	private Date checkupDate;

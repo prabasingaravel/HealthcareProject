@@ -31,7 +31,6 @@ public class VitalSignController {
 
 	@Autowired
 	public VitalSignController(VitalSignService vitalSignSerivce) {
-		super();
 		this.vitalSignSerivce = vitalSignSerivce;
 	}
 	

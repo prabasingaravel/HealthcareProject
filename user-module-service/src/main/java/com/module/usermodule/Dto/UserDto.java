@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDto implements Serializable{
 	private static final long serialVersionUID = 4266140616476670021L;
-	private UUID userId;
+	private long userId;
 	private String userName;
 	private String password;
 	private int roleId;
@@ -45,7 +45,7 @@ public class UserDto implements Serializable{
 	public static UserDto convertUserDto(User user) {
 		UserDto userDto = new UserDto();
 		userDto.setUserId(user.getUserId());
-		userDto.setUserId(user.getUserId());
+		userDto.setUserName(user.getUserName());
 		userDto.setPassword(user.getPassword());
 		userDto.setRoleId(user.getRoleId());
 		userDto.setCreatedAt(user.getCreatedAt());

@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @SpringBootApplication
 @EnableCaching
 @RefreshScope
-@EnableDiscoveryClient
 @EnableJpaAuditing
 public class UserModuleServiceApplication {
 
