@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableTransactionManagement
 @EnableCaching
+@EnableDiscoveryClient
 @EnableJpaAuditing
 public class PatientModuleServiceApplication {
 
