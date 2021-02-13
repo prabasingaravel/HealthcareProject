@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 /**
  * VitalSignDto represent vital sign table.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @Data
@@ -35,6 +36,9 @@ public class VitalSignDto implements Serializable {
 	private LocalDateTime updatedAt;
 	
 	public static VitalSign ConvertVitalSignDomain(VitalSignDto vitalSignDto) {
+		if (vitalSignDto == null) {
+			return null;
+		}
 		VitalSign vitalSign = new VitalSign();
 		vitalSign.setPatientId(vitalSignDto.getPatientId());
 		vitalSign.setUserName(vitalSignDto.getUserName());
@@ -53,6 +57,9 @@ public class VitalSignDto implements Serializable {
 	}
 
 	public static VitalSignDto ConvertVitalSignDto(VitalSign vitalSign) {
+		if (vitalSign == null) {
+			return null;
+		}
 		VitalSignDto vitalSignDto = new VitalSignDto();
 		vitalSignDto.setPatientId(vitalSign.getPatientId());
 		vitalSignDto.setUserName(vitalSign.getUserName());

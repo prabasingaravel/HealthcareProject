@@ -15,6 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * SwaggerConfig is used to generate the end point detail documentation.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */	
 @Configuration

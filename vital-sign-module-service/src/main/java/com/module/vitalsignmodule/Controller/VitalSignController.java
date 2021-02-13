@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,12 +24,14 @@ import com.module.vitalsignmodule.Service.VitalSignService;
 /**
  * VitalSignController is used for Vital Sign end point.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @RestController
 @RequestMapping("/vitalsigns")
 public class VitalSignController {
 
+	@Lazy
 	@Autowired
 	public VitalSignController(VitalSignService vitalSignSerivce) {
 		this.vitalSignSerivce = vitalSignSerivce;
@@ -61,7 +64,7 @@ public class VitalSignController {
 	}
 	
 	/**
-	 * getPatientById method is used to get the patient information.
+	 * getPatientById method is used to get the patient information based on patient id.
 	 * @param patientId
 	 * @return PatientDto
 	 */
