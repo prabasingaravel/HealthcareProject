@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,12 +26,14 @@ import io.swagger.annotations.ApiOperation;
 /**
  * PatientController is used for patients end point.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @RestController
 @RequestMapping("/patients")
 public class PatientController {
 	
+	@Lazy
 	@Autowired
 	public PatientController(PatientService patientService) {
 		this.patientService = patientService;

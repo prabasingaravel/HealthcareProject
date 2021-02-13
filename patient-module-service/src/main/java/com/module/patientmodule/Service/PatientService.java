@@ -7,6 +7,7 @@ import com.module.patientmodule.Dto.PatientDto;
 /**
  * PatientService is used for patient table CRUD operation.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 public interface PatientService {

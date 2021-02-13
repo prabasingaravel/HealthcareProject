@@ -1,19 +1,21 @@
 package com.module.patientmodule.ServiceImpl;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import com.module.patientmodule.Advice.TrackExecutionTime;
-import com.module.patientmodule.Advice.TrackLogging;
 import com.module.patientmodule.Dto.PatientDto;
 import com.module.patientmodule.ExceptionHandling.ResourceNotFoundException;
+import com.module.patientmodule.Index.PatientIndex;
 import com.module.patientmodule.Model.Patient;
+import com.module.patientmodule.Repository.ElasticRepository;
 import com.module.patientmodule.Repository.PatientRepository;
 import com.module.patientmodule.Service.PatientService;
 import com.module.patientmodule.Util.QueryUtil;
@@ -21,24 +23,31 @@ import com.module.patientmodule.Util.QueryUtil;
 /**
  * PatientServiceImpl which implements PatientService.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @Service
 public class PatientServiceImpl implements PatientService{
 	
+	@Lazy
 	@Autowired
-	public PatientServiceImpl(PatientRepository patientRepository, EntityManagerFactory entityManager) {
+	public PatientServiceImpl(PatientRepository patientRepository, EntityManagerFactory entityManager,
+			ElasticRepository elasticRepository) {
 		this.patientRepository = patientRepository;
 		this.entityManager = entityManager;
+		this.elasticRepository = elasticRepository;
 	}
 	private final EntityManagerFactory entityManager;
 	private final PatientRepository patientRepository;
+	private final ElasticRepository elasticRepository;
 	
+	@Override
 	public PatientDto addPatient(PatientDto patientDto) {
+		elasticRepository.save(PatientIndex.ConvertPatientDomain(patientDto));
 		return PatientDto.ConvertPatientDto(patientRepository.save(PatientDto.ConvertPatientDomain(patientDto)));
 	}
 	
-	@TrackExecutionTime
+	@Override
 	public List<PatientDto> getAllPatient(){
 		QueryUtil queryUtil = new QueryUtil();
 		EntityManager manager = entityManager.createEntityManager();
@@ -46,28 +55,32 @@ public class PatientServiceImpl implements PatientService{
 		return query.getResultList();
 	}
 	
+	@Override
 	public PatientDto updatePatient(PatientDto patientDto){
 		Patient patient = patientRepository.getPatientById(patientDto.getPatientId());
-		if(patient != null) {
+		if(Objects.nonNull(patient)) {
+			elasticRepository.save(PatientIndex.ConvertPatientDomain(patientDto));
 			return PatientDto.ConvertPatientDto(patientRepository.save(PatientDto.ConvertPatientDomain(patientDto)));
 		}else {
 			throw new ResourceNotFoundException("Patient Detail not found for the id " + patientDto.getPatientId());
 		}
 	}
 	
-	@TrackLogging
+	@Override
 	public PatientDto getPatientById(int patientId){
 		Patient patient = patientRepository.getPatientById(patientId);
-		if(patient != null) {
+		if(Objects.nonNull(patient)) {
 			return PatientDto.ConvertPatientDto(patient);
 		}else {
 			throw new ResourceNotFoundException("Patient Detail not found for the id " + patientId);
 		}
 	}
 	
+	@Override
 	public String deletePatient(int patientId){
 		Patient patient = patientRepository.getPatientById(patientId);
-		if(patient != null) {
+		if(Objects.nonNull(patient)) {
+			elasticRepository.delete(PatientIndex.ConvertPatientElastic(patient));
 			patientRepository.delete(patient);
 			return "Patient Detail is deleted with id " + patientId;
 		}else {

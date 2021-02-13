@@ -9,6 +9,7 @@ import com.module.patientmodule.Model.Patient;
 /**
  * PatientRepository is a repository for patient table.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @Repository

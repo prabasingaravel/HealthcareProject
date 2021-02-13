@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 /**
  * PatientDto represent patient table.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @Data
@@ -40,6 +41,9 @@ public class PatientDto implements Serializable {
 	private LocalDateTime updatedAt;
 	
 	public static Patient ConvertPatientDomain(PatientDto patientDto) {
+		if (patientDto == null) {
+			return null;
+		}
 		Patient patient = new Patient();
 		patient.setPatientId(patientDto.getPatientId());
 		patient.setPatientFirstName(patientDto.getPatientFirstName());
@@ -63,6 +67,9 @@ public class PatientDto implements Serializable {
 	}
 
 	public static PatientDto ConvertPatientDto(Patient patient) {
+		if (patient == null) {
+			return null;
+		}
 		PatientDto patientDto = new PatientDto();
 		patientDto.setPatientId(patient.getPatientId());
 		patientDto.setPatientFirstName(patient.getPatientFirstName());

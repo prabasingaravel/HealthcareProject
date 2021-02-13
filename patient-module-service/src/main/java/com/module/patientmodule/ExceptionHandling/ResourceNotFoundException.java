@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * ResourceNotFoundException is used for custom exception.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @ResponseStatus(reason = "PatientNotFound")

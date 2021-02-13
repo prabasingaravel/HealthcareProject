@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
 /**
  * Patient which represent entity for patient table.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @Data
