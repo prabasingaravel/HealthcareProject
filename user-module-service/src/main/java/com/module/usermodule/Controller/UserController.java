@@ -20,13 +20,13 @@ import com.module.usermodule.Advice.TrackExecutionTime;
 import com.module.usermodule.Advice.TrackLogging;
 import com.module.usermodule.Dto.UserDto;
 import com.module.usermodule.Service.UserService;
-import com.module.usermodule.ServiceImpl.UserServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
 
 /**
  * UserController is used for User end point.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @RestController
@@ -35,14 +35,11 @@ public class UserController {
 
 	@Lazy
 	@Autowired
-	public UserController(UserService userService,
-			UserServiceImpl userServiceImpl) {
+	public UserController(UserService userService) {
 		this.userService = userService;
-		this.userServiceImpl = userServiceImpl;
 	}
 
 	private final UserService userService;
-	private final UserServiceImpl userServiceImpl;
 
 	/**
 	 * addUser method is used to register user.
@@ -58,7 +55,7 @@ public class UserController {
 	}
 
 	/**
-	 * getUserByName method is used to get specific user detail.
+	 * getUserByName method is used to get user detail based on name.
 	 * @param userName
 	 * @return UserDto
 	 */
@@ -85,7 +82,7 @@ public class UserController {
 	}
 	
 	/**
-	 * deleteUser method is used to delete specific user detail.
+	 * deleteUser method is used to delete user detail based on user id.
 	 * @param userId
 	 * @return String
 	 */
@@ -121,6 +118,6 @@ public class UserController {
 	@PostMapping("/authenticate")
 	@ApiOperation(value = "Insert authenticate Detail", response = String.class)
 	public String generateToken(@RequestBody UserDto authRequest) throws Exception {
-		return userServiceImpl.tokenInfo(authRequest.getUserName(), authRequest.getPassword());
+		return userService.tokenInfo(authRequest.getUserName(), authRequest.getPassword());
 	}
 }

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.module.usermodule.Advice.TrackExecutionTime;
+import com.module.usermodule.Advice.TrackLogging;
 import com.module.usermodule.Dto.RoleDto;
 import com.module.usermodule.Service.RoleService;
 
@@ -24,6 +26,7 @@ import io.swagger.annotations.ApiOperation;
 /**
  * RoleController is used for role end point.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @RestController
@@ -43,18 +46,22 @@ public class RoleController {
 	 */
 	@PostMapping(path="/",consumes= {"application/json"})
 	@ApiOperation(value = "Insert Role Detail", response = RoleDto.class)
+	@TrackExecutionTime
+	@TrackLogging
 	public RoleDto addRole(@RequestBody RoleDto roleDto) {
 		return roleService.addRole(roleDto);
 	}
 
 	/**
-	 * getRoleById method is used to get specific role detail.
+	 * getRoleById method is used to fetch role detail based on role id.
 	 * @param roleId
 	 * @return RoleDto
 	 */
 	@GetMapping(path="/{roleId}",produces= {"application/json"})
 	@Cacheable(value = "role", key = "#roleId")
 	@ApiOperation(value = "Fetch Specific Role Detail", response = RoleDto.class)
+	@TrackExecutionTime
+	@TrackLogging
 	public RoleDto getRoleById(@PathVariable int roleId) {
 		return roleService.getRoleById(roleId);
 	}
@@ -66,18 +73,22 @@ public class RoleController {
 	@GetMapping(path="/",produces= {"application/json"})
 	@Cacheable(value = "role")
 	@ApiOperation(value = "Fetch All Role Detail", response = List.class)
+	@TrackExecutionTime
+	@TrackLogging
 	public List<RoleDto> getRoleDetails() {
 		return roleService.getRoleDetails();
 	}
 	
 	/**
-	 * deleteRole method is used to delete specific role detail.
+	 * deleteRole method is used to delete role detail based on role id.
 	 * @param roleId
 	 * @return String
 	 */
 	@DeleteMapping(path="/{roleId}")
 	@CacheEvict(value = "role", key = "#roleId")
 	@ApiOperation(value = "Delete Specific role Detail", response = String.class)
+	@TrackExecutionTime
+	@TrackLogging
 	public String deleteRole(@PathVariable int roleId) {
 		return roleService.deleteRole(roleId);
 	}
@@ -90,6 +101,8 @@ public class RoleController {
 	@PutMapping(path="/", consumes= {"application/json"})
 	@CachePut(value = "role", key="#roleId")
 	@ApiOperation(value = "Update Role Detail", response = RoleDto.class)
+	@TrackExecutionTime
+	@TrackLogging
 	public RoleDto updateRole(@RequestBody RoleDto roleDto) {
 		return roleService.updateRole(roleDto);
 	}

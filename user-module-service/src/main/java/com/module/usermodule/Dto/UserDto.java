@@ -2,7 +2,6 @@ package com.module.usermodule.Dto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import com.module.usermodule.Model.User;
 
@@ -13,6 +12,7 @@ import lombok.NoArgsConstructor;
 /**
  * UserDto represent User table.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @Data
@@ -30,6 +30,9 @@ public class UserDto implements Serializable{
 	private LocalDateTime updatedAt;
 	
 	public static User convertUserDomain(UserDto userDto) {
+		if (userDto == null) {
+			return null;
+		}
 		User user = new User();
 		user.setUserId(userDto.getUserId());
 		user.setUserName(userDto.getUserName());
@@ -43,6 +46,9 @@ public class UserDto implements Serializable{
 	}
 
 	public static UserDto convertUserDto(User user) {
+		if (user == null) {
+			return null;
+		}
 		UserDto userDto = new UserDto();
 		userDto.setUserId(user.getUserId());
 		userDto.setUserName(user.getUserName());

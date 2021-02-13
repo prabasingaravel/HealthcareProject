@@ -15,6 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * SwaggerConfig is used to generate the end point detail documentation.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */	
 @Configuration
@@ -24,7 +25,8 @@ public class SwaggerConfig {
 	@Bean
 	public Docket docket() {
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
-				.apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot"))).build();
+				.apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
+				.build();
 	}
 	
 	@Bean

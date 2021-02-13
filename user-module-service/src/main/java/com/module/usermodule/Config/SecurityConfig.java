@@ -21,6 +21,7 @@ import com.module.usermodule.ServiceImpl.UserServiceImpl;
 /**
  * SecurityConfig is used to authenticate the end point hits.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */	
 @Configuration
@@ -55,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers("/users/authenticate","/actuator/health").permitAll()
+		http.csrf().disable().authorizeRequests().antMatchers("/users/authenticate","/actuator/**").permitAll()
 			.anyRequest().authenticated().and().exceptionHandling().and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class);

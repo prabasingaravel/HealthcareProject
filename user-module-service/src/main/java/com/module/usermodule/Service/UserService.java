@@ -7,6 +7,7 @@ import com.module.usermodule.Dto.UserDto;
 /**
  * UserService is used for user table CRUD operation.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 public interface UserService {
@@ -20,4 +21,6 @@ public interface UserService {
 	public String deleteUser(long userId);
 	
 	public UserDto updateUser(UserDto userDto);
+	
+	public String tokenInfo(String username, String password) throws Exception;
 }

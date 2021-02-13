@@ -8,6 +8,7 @@ import com.module.usermodule.Model.Role;
 /**
  * RoleRepository is a repository for role table.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @Repository

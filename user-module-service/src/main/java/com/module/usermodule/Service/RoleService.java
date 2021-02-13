@@ -7,6 +7,7 @@ import com.module.usermodule.Dto.RoleDto;
 /**
  * RoleService is used for role table CRUD operation.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 public interface RoleService {

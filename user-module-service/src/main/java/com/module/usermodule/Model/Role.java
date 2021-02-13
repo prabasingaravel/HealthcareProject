@@ -26,6 +26,7 @@ import lombok.NoArgsConstructor;
 /**
  * Role which represent entity for role table.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @Data

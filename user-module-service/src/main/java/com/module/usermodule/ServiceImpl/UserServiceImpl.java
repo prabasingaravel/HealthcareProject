@@ -2,6 +2,7 @@ package com.module.usermodule.ServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import com.module.usermodule.Util.JwtUtil;
 /**
  * UserServiceImpl which implements UserService and UserDetailsService.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @Service
@@ -53,6 +55,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 				new ArrayList<>());
 	}
 
+	@Override
 	public String tokenInfo(String username, String password) throws Exception {
 		try {
 
@@ -67,27 +70,31 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		return "Welcome to "+ role.getRoleName() + " Dash board Mr/Ms : " + username + " Your Token is " + token;
 	}
 	
+	@Override
 	public UserDto addUser(UserDto userDto) {
 		return UserDto.convertUserDto(userRepository.save(UserDto.convertUserDomain(userDto)));
 	}
 
+	@Override
 	public UserDto getUserByName(String username) {
 		User user = userRepository.findByUserName(username);
-		if(user != null) {
+		if(Objects.nonNull(user)) {
 			return UserDto.convertUserDto(user);
 		}else {
 			throw new ResourceNotFoundException("User Information not found for the name " + username);
 		}
 	}
 
+	@Override
 	public List<UserDto> getAllUser() {
-		return userRepository.findAll().stream().map(a -> UserDto.convertUserDto(a))
+		return userRepository.findAll().stream().map(user -> UserDto.convertUserDto(user))
 				.collect(Collectors.toList());
 	}
 	
+	@Override
 	public String deleteUser(long userId) {
 		User user = userRepository.findByUserId(userId);
-		if(user != null) {
+		if(Objects.nonNull(user)) {
 			userRepository.delete(user);
 			return "User Information is deleted with id " + userId;
 		}else {
@@ -95,9 +102,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		}
 	}
 	
+	@Override
 	public UserDto updateUser(UserDto userDto) {
 		User user = userRepository.findByUserName(userDto.getUserName());
-		if(user != null) {
+		if(Objects.nonNull(user)) {
 			return UserDto.convertUserDto(userRepository.save(UserDto.convertUserDomain(userDto)));
 		}else {
 			throw new ResourceNotFoundException("User Information not found for the name " + userDto.getUserName());

@@ -8,6 +8,7 @@ import com.module.usermodule.Model.User;
 /**
  * UserRepository is a repository for user table.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @Repository

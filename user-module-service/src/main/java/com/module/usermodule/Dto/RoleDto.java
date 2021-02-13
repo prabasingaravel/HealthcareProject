@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 /**
  * RoleDto represent role table.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @Data
@@ -30,6 +31,9 @@ public class RoleDto implements Serializable {
 	private LocalDateTime updatedAt;
 	
 	public static Role convertRoleDomain(RoleDto roleDto) {
+		if (roleDto == null) {
+			return null;
+		}
 		Role role = new Role();
 		role.setRoleId(roleDto.getRoleId());
 		role.setRoleName(roleDto.getRoleName());
@@ -42,6 +46,9 @@ public class RoleDto implements Serializable {
 	}
 
 	public static RoleDto convertRoleDto(Role role) {
+		if (role == null) {
+			return null;
+		}
 		RoleDto roleDto = new RoleDto();
 		roleDto.setRoleId(role.getRoleId());
 		roleDto.setRoleName(role.getRoleName());

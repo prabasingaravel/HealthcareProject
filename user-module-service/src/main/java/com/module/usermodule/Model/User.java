@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
 /**
  * User which represent entity for user table.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @Data

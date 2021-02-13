@@ -15,12 +15,13 @@ import io.jsonwebtoken.SignatureAlgorithm;
 /**
  * JwtUtil class used to generate customize Jwt token.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @Service
 public class JwtUtil {
 
-	private static String secret = "praba";
+	private static String secret = "jjwt";
 	
 	public String extractUsername(String token) {
 		return extractClaim(token,Claims::getSubject);

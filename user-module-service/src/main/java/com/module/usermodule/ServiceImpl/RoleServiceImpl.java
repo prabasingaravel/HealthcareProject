@@ -1,6 +1,7 @@
 package com.module.usermodule.ServiceImpl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.module.usermodule.Service.RoleService;
 /**
  * RoleServiceImpl which implements RoleService.
  * @author Praba Singaravel
+ * @since 21.02
  *
  */
 @Service
@@ -28,22 +30,26 @@ public class RoleServiceImpl implements RoleService{
 
 	private final RoleRepository roleRepository;
 	
+	@Override
 	public RoleDto addRole(RoleDto roleDto) {
 		return RoleDto.convertRoleDto(roleRepository.save(RoleDto.convertRoleDomain(roleDto)));
 	}
 
+	@Override
 	public List<RoleDto> getRoleDetails() {
-		return roleRepository.findAll().stream().map(a -> RoleDto.convertRoleDto(a))
+		return roleRepository.findAll().stream().map(role -> RoleDto.convertRoleDto(role))
 				.collect(Collectors.toList());
 	}
 
+	@Override
 	public RoleDto getRoleById(int roleId) {
 		return RoleDto.convertRoleDto(roleRepository.findByRoleId(roleId));
 	}
 
+	@Override
 	public String deleteRole(int roleId) {
 		Role role = roleRepository.findByRoleId(roleId);
-		if(role != null) {
+		if(Objects.nonNull(role)) {
 			roleRepository.delete(role);
 			return "User Information is deleted with id " + roleId;
 		}else {
@@ -51,6 +57,7 @@ public class RoleServiceImpl implements RoleService{
 		}
 	}
 
+	@Override
 	public RoleDto updateRole(RoleDto roleDto) {
 		return RoleDto.convertRoleDto(roleRepository.save(RoleDto.convertRoleDomain(roleDto)));
 	}
