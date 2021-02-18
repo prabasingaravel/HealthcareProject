@@ -13,5 +13,11 @@ import com.module.usermodule.Model.Role;
  */
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer>{
+	
+	/**
+	 * getRoleById method is used to fetch role detail based on role id.
+	 * @param roleId
+	 * @return Role
+	 */
 	Role findByRoleId(int roleId);
 }

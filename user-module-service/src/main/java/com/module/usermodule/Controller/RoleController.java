@@ -68,7 +68,7 @@ public class RoleController {
 	
 	/**
 	 * getRoleDetails method is used to fetch all role detail.
-	 * @return List
+	 * @return List of RoleDto
 	 */
 	@GetMapping(path="/",produces= {"application/json"})
 	@Cacheable(value = "role")

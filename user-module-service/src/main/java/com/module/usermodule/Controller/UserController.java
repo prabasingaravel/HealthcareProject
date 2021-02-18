@@ -55,7 +55,7 @@ public class UserController {
 	}
 
 	/**
-	 * getUserByName method is used to get user detail based on name.
+	 * getUserByName method is used to get user detail based on user name.
 	 * @param userName
 	 * @return UserDto
 	 */
@@ -70,7 +70,7 @@ public class UserController {
 	
 	/**
 	 * getAllUser method is used to get all user detail.
-	 * @return List
+	 * @return List of UserDto
 	 */
 	@GetMapping(path="/",produces= {"application/json"})
 	@Cacheable(value = "user")

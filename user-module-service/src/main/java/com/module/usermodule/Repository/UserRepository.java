@@ -14,7 +14,17 @@ import com.module.usermodule.Model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 
+	/**
+	 * findByUserName method is used to get user detail based on user name.
+	 * @param userName
+	 * @return User
+	 */
 	User findByUserName(String userName);
 
+	/**
+	 * findByUserId method is used to get user detail based on user id.
+	 * @param userName
+	 * @return User
+	 */
 	User findByUserId(Long userId);
 }

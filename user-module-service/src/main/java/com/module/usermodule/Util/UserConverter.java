@@ -10,6 +10,12 @@ import com.module.usermodule.Model.User;
  *
  */
 public class UserConverter {
+	
+	/**
+	 * convertToUserEntity method is used to convert user dto to role entity.
+	 * @param userDto
+	 * @return User
+	 */
 	public static User convertToUserEntity(UserDto userDto) {
 		if (userDto == null) {
 			return null;
@@ -26,6 +32,11 @@ public class UserConverter {
 		return user;
 	}
 
+	/**
+	 * convertToUserDto method is used to convert user entity to role dto.
+	 * @param user
+	 * @return UserDto
+	 */
 	public static UserDto convertToUserDto(User user) {
 		if (user == null) {
 			return null;

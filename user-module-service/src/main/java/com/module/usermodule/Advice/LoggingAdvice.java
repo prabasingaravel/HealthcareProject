@@ -21,15 +21,22 @@ public class LoggingAdvice {
 	
 	Logger logger = LoggerFactory.getLogger(LoggingAdvice.class);
 
+	/**
+	 * applicationLogger is used to generate log for every method execution.
+	 * @param proceedingJoinPoint
+	 * @return Object
+	 * @throws Throwable
+	 *
+	 */
 	@Around("@annotation(com.module.usermodule.Advice.TrackLogging)")
-	public Object applicationLogger(ProceedingJoinPoint pjp) throws Throwable {
+	public Object applicationLogger(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
-		String methodName = pjp.getSignature().getName();
-		String className = pjp.getTarget().getClass().toString();
-		Object[] array = pjp.getArgs();
+		String methodName = proceedingJoinPoint.getSignature().getName();
+		String className = proceedingJoinPoint.getTarget().getClass().toString();
+		Object[] array = proceedingJoinPoint.getArgs();
 		logger.info("method invoked " + className + " : " + methodName + "()" + "arguments : "
 				+ mapper.writeValueAsString(array));
-		Object object = pjp.proceed();
+		Object object = proceedingJoinPoint.proceed();
 		logger.info(className + " : " + methodName + "()" + "Response : " + mapper.writeValueAsString(object));
 		return object;
 	}
