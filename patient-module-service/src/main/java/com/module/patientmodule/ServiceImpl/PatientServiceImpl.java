@@ -18,6 +18,7 @@ import com.module.patientmodule.Model.Patient;
 import com.module.patientmodule.Repository.ElasticRepository;
 import com.module.patientmodule.Repository.PatientRepository;
 import com.module.patientmodule.Service.PatientService;
+import com.module.patientmodule.Util.PatientConverter;
 import com.module.patientmodule.Util.QueryUtil;
 
 /**
@@ -44,7 +45,7 @@ public class PatientServiceImpl implements PatientService{
 	@Override
 	public PatientDto addPatient(PatientDto patientDto) {
 		elasticRepository.save(PatientIndex.ConvertPatientDomain(patientDto));
-		return PatientDto.ConvertPatientDto(patientRepository.save(PatientDto.ConvertPatientDomain(patientDto)));
+		return PatientConverter.convertToPatientDto(patientRepository.save(PatientConverter.convertToPatientEntity(patientDto)));
 	}
 	
 	@Override
@@ -60,7 +61,7 @@ public class PatientServiceImpl implements PatientService{
 		Patient patient = patientRepository.getPatientById(patientDto.getPatientId());
 		if(Objects.nonNull(patient)) {
 			elasticRepository.save(PatientIndex.ConvertPatientDomain(patientDto));
-			return PatientDto.ConvertPatientDto(patientRepository.save(PatientDto.ConvertPatientDomain(patientDto)));
+			return PatientConverter.convertToPatientDto(patientRepository.save(PatientConverter.convertToPatientEntity(patientDto)));
 		}else {
 			throw new ResourceNotFoundException("Patient Detail not found for the id " + patientDto.getPatientId());
 		}
@@ -70,7 +71,7 @@ public class PatientServiceImpl implements PatientService{
 	public PatientDto getPatientById(int patientId){
 		Patient patient = patientRepository.getPatientById(patientId);
 		if(Objects.nonNull(patient)) {
-			return PatientDto.ConvertPatientDto(patient);
+			return PatientConverter.convertToPatientDto(patient);
 		}else {
 			throw new ResourceNotFoundException("Patient Detail not found for the id " + patientId);
 		}

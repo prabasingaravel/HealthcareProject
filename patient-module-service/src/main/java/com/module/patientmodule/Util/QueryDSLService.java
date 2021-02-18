@@ -3,6 +3,7 @@ package com.module.patientmodule.Util;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
@@ -22,6 +23,7 @@ public class QueryDSLService {
 
 	private final ElasticsearchOperations elasticsearchOperations;
 	
+	@Lazy
 	@Autowired
 	public QueryDSLService(ElasticsearchOperations elasticsearchOperations) {
 		this.elasticsearchOperations = elasticsearchOperations;
