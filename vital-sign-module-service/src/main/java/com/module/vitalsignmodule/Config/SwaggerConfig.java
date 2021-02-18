@@ -22,12 +22,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
+	/**
+	 * docket is used to configure the end point document to the swagger.
+	 * @return Docket
+	 *
+	 */
 	@Bean
 	public Docket docket() {
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
 				.apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot"))).build();
 	}
 	
+	/**
+	 * apiInfo is used to build the detail information of the end point.
+	 * @return ApiInfo
+	 *
+	 */
 	@Bean
 	public ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("Vital Sign Details")

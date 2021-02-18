@@ -1,8 +1,6 @@
 package com.microservices.vitalsignmoduleservice.Controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
@@ -16,7 +14,6 @@ import com.microservices.vitalsignmoduleservice.Prototype.VitalSignPrototype;
 import com.module.vitalsignmodule.VitalSignModuleServiceApplication;
 import com.module.vitalsignmodule.Client.PatientClient;
 import com.module.vitalsignmodule.Controller.VitalSignController;
-import com.module.vitalsignmodule.Dto.PatientDto;
 import com.module.vitalsignmodule.Dto.VitalSignDto;
 import com.module.vitalsignmodule.ServiceImpl.VitalSignServiceImpl;
 
@@ -57,14 +54,6 @@ public class VitalSignControllerTest {
 		VitalSignDto vitalSignDtoResponse = vitalSignController.getVitalSignById(vitalSignDto.getPatientId(),
 				vitalSignDto.getCheckupDate());
 		assertEquals(vitalSignDtoResponse, vitalSignDto);
-	}
-	
-	@Test
-	public void getPatientByIdTest() {
-		PatientDto patientDto = VitalSignPrototype.patientDto();
-		when(patientClient.getPatientById(patientDto.getPatientId())).thenReturn(patientDto);
-		PatientDto patientDtoResponse = vitalSignServiceImpl.getPatientById(patientDto.getPatientId());
-		assertEquals(patientDtoResponse, patientDto);
 	}
 	
 	@Test

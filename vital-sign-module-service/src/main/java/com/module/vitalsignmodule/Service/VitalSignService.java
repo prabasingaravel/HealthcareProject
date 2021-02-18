@@ -13,14 +13,41 @@ import com.module.vitalsignmodule.Dto.VitalSignDto;
  */
 public interface VitalSignService {
 	
+	/**
+	 * addVitalSign method is used to register vital sign.
+	 * @param vitalSignDto
+	 * @return VitalSignDto
+	 */
 	public VitalSignDto addVitalSign(VitalSignDto vitalSignDto);
 	
+	/**
+	 * updateVitalSign method is used to update vital sign detail.
+	 * @param vitalSignDto
+	 * @return VitalSignDto
+	 */
 	public VitalSignDto updateVitalSign(VitalSignDto vitalSignDto);
 	
+	/**
+	 * getVitalSignById method used to fetch the vital sign detail based on patient id and checkup Date.
+	 * @param patientId
+	 * @param checkupDate
+	 * @return VitalSign
+	 */
 	public VitalSignDto getVitalSignById(int patientId, Date checkupDate);
 	
+	/**
+	 * getPatientById method is used to get the patient information based on patient id.
+	 * @param patientId
+	 * @return PatientDto
+	 */
 	public PatientDto getPatientById(int patient);
 	
+	/**
+	 * deleteVitalSign method is used to delete vital sign detail based on patient id.
+	 * @param patientId
+	 * @param checkupDate
+	 * @return String
+	 */
 	public String deleteVitalSign(int patientId, Date checkupDate);
 	
 }

@@ -1,8 +1,6 @@
 package com.microservices.vitalsignmoduleservice.Service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
@@ -15,9 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.microservices.vitalsignmoduleservice.Prototype.VitalSignPrototype;
 import com.module.vitalsignmodule.VitalSignModuleServiceApplication;
 import com.module.vitalsignmodule.Client.PatientClient;
-import com.module.vitalsignmodule.Dto.PatientDto;
 import com.module.vitalsignmodule.Dto.VitalSignDto;
-import com.module.vitalsignmodule.Model.VitalSign;
 import com.module.vitalsignmodule.Repository.VitalSignRepository;
 import com.module.vitalsignmodule.ServiceImpl.VitalSignServiceImpl;
 import com.module.vitalsignmodule.Util.VitalSignConverter;
@@ -37,45 +33,41 @@ public class VitalSignServiceImplTest {
 	
 	@Test
 	public void addVitalSignTest() {
-		VitalSign vitalSign = VitalSignPrototype.vitalSign();
-		when(vitalSignRepository.save(vitalSign)).thenReturn(vitalSign);
-		VitalSignDto vitalSignDtoResponse = vitalSignServiceImpl.addVitalSign(VitalSignConverter.convertToVitalSignDto(vitalSign));
-		assertEquals(VitalSignConverter.convertToVitalSignEntity(vitalSignDtoResponse), vitalSign);
+		VitalSignDto vitalSignDto = VitalSignPrototype.vitalSignDto();
+		when(vitalSignRepository.save(VitalSignConverter.convertToVitalSignEntity(vitalSignDto)))
+		.thenReturn(VitalSignConverter.convertToVitalSignEntity(vitalSignDto));
+		VitalSignDto vitalSignDtoResponse = vitalSignServiceImpl.addVitalSign(vitalSignDto);
+		assertEquals(vitalSignDtoResponse, vitalSignDto);
 	}
 	
 	@Test
 	public void updateVitalSignTest() {
-		VitalSign vitalSign = VitalSignPrototype.vitalSign();
-		when(vitalSignRepository.findByPatientIdAndCheckupDate(vitalSign.getPatientId(),
-				vitalSign.getCheckupDate())).thenReturn(vitalSign);
-		vitalSignServiceImpl.updateVitalSign(VitalSignConverter.convertToVitalSignDto(vitalSign));
-		verify(vitalSignRepository,times(1)).save(vitalSign);
+		VitalSignDto vitalSignDto = VitalSignPrototype.vitalSignDto();
+		when(vitalSignRepository.findByPatientIdAndCheckupDate(vitalSignDto.getPatientId(),
+				vitalSignDto.getCheckupDate())).thenReturn(VitalSignConverter.convertToVitalSignEntity(vitalSignDto));
+		when(vitalSignRepository.save(VitalSignConverter.convertToVitalSignEntity(vitalSignDto)))
+		.thenReturn(VitalSignConverter.convertToVitalSignEntity(vitalSignDto));
+		VitalSignDto vitalSignDtoResponse = vitalSignServiceImpl.updateVitalSign(vitalSignDto);
+		assertEquals(vitalSignDtoResponse, vitalSignDto);
 	}
 	
 	@Test
 	public void getVitalSignByIdTest() {
-		VitalSign vitalSign = VitalSignPrototype.vitalSign();
-		when(vitalSignRepository.findByPatientIdAndCheckupDate(vitalSign.getPatientId(),
-				vitalSign.getCheckupDate())).thenReturn(vitalSign);
-		VitalSignDto vitalSignDtoResponse = vitalSignServiceImpl.getVitalSignById(vitalSign.getPatientId(),
-				vitalSign.getCheckupDate());
-		assertEquals(VitalSignConverter.convertToVitalSignEntity(vitalSignDtoResponse), vitalSign);
-	}
-	
-	@Test
-	public void getPatientByIdTest() {
-		PatientDto patientDto = VitalSignPrototype.patientDto();
-		when(patientClient.getPatientById(patientDto.getPatientId())).thenReturn(patientDto);
-		PatientDto patientDtoResponse = vitalSignServiceImpl.getPatientById(patientDto.getPatientId());
-		assertEquals(patientDtoResponse, patientDto);
+		VitalSignDto vitalSignDto = VitalSignPrototype.vitalSignDto();
+		when(vitalSignRepository.findByPatientIdAndCheckupDate(vitalSignDto.getPatientId(),
+				vitalSignDto.getCheckupDate())).thenReturn(VitalSignConverter.convertToVitalSignEntity(vitalSignDto));
+		VitalSignDto vitalSignDtoResponse = vitalSignServiceImpl.getVitalSignById(vitalSignDto.getPatientId(),
+				vitalSignDto.getCheckupDate());
+		assertEquals(vitalSignDtoResponse, vitalSignDto);
 	}
 	
 	@Test
 	public void deleteVitalSignTest() {
-		VitalSign vitalSign = VitalSignPrototype.vitalSign();
-		when(vitalSignRepository.findByPatientIdAndCheckupDate(vitalSign.getPatientId(),
-				vitalSign.getCheckupDate())).thenReturn(vitalSign);
-		vitalSignServiceImpl.deleteVitalSign(vitalSign.getPatientId(), vitalSign.getCheckupDate());
-		verify(vitalSignRepository,times(1)).delete(vitalSign);
+		String messageExpected ="Vital Sign is deleted with id 12";
+		VitalSignDto vitalSignDto = VitalSignPrototype.vitalSignDto();
+		when(vitalSignRepository.findByPatientIdAndCheckupDate(vitalSignDto.getPatientId(),
+				vitalSignDto.getCheckupDate())).thenReturn(VitalSignConverter.convertToVitalSignEntity(vitalSignDto));
+		String vitalSignResponse = vitalSignServiceImpl.deleteVitalSign(vitalSignDto.getPatientId(), vitalSignDto.getCheckupDate());
+		assertEquals(vitalSignResponse, messageExpected);
 	}
 }

@@ -4,23 +4,8 @@ import java.sql.Date;
 
 import com.module.vitalsignmodule.Dto.PatientDto;
 import com.module.vitalsignmodule.Dto.VitalSignDto;
-import com.module.vitalsignmodule.Model.VitalSign;
 
 public class VitalSignPrototype {
-
-	public static VitalSign vitalSign() {
-		VitalSign vitalSign = new VitalSign();
-		vitalSign.setPatientId(12);
-		vitalSign.setUserName("Sanju");
-		vitalSign.setCheckupDate(Date.valueOf("2021-02-16"));
-		vitalSign.setPulse(75);
-		vitalSign.setBloodPressure(90);
-		vitalSign.setWeight(55);
-		vitalSign.setTemperature(95);
-		vitalSign.setBloodSugar(100);
-		vitalSign.setRespirationRate(15);
-		return vitalSign;
-	}
 	
 	public static VitalSignDto vitalSignDto() {
 		VitalSignDto vitalSign = new VitalSignDto();

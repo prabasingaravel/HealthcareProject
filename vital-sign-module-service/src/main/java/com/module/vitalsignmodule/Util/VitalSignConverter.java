@@ -10,6 +10,12 @@ import com.module.vitalsignmodule.Model.VitalSign;
  *
  */
 public class VitalSignConverter {
+	
+	/**
+	 * convertToVitalSignEntity method is used to convert vital sign Dto to vital sign entity.
+	 * @param vitalSignDto
+	 * @return VitalSign
+	 */
 	public static VitalSign convertToVitalSignEntity(VitalSignDto vitalSignDto) {
 		if (vitalSignDto == null) {
 			return null;
@@ -31,6 +37,11 @@ public class VitalSignConverter {
 		return vitalSign;
 	}
 
+	/**
+	 * convertToVitalSignDto method is used to convert vital sign entity to vital sign dto.
+	 * @param vitalSign
+	 * @return VitalSignDto
+	 */
 	public static VitalSignDto convertToVitalSignDto(VitalSign vitalSign) {
 		if (vitalSign == null) {
 			return null;

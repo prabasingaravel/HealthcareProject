@@ -16,6 +16,12 @@ import com.module.vitalsignmodule.Model.VitalSign;
 @Repository
 public interface VitalSignRepository extends JpaRepository<VitalSign, Integer> {
 
+	/**
+	 * findByPatientIdAndCheckupDate method used to fetch the vital sign detail based on patient id and checkup Date.
+	 * @param patientId
+	 * @param checkupDate
+	 * @return VitalSign
+	 */
 	VitalSign findByPatientIdAndCheckupDate(int patientId, Date checkupDate);
 	
 }

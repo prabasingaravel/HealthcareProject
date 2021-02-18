@@ -52,9 +52,10 @@ public class VitalSignController {
 	}
 	
 	/**
-	 * getVitalSignById method is used to get vital sign information for specific date
-	 * @param patientId,checkupDate
-	 * @return VitalSignDto
+	 * getVitalSignById method used to fetch the vital sign detail based on patient id and checkup Date.
+	 * @param patientId
+	 * @param checkupDate
+	 * @return VitalSign
 	 */
 	@GetMapping(path="/{patientId}/{checkupDate}",produces= {"application/json"})
 	@TrackExecutionTime
@@ -88,8 +89,9 @@ public class VitalSignController {
 	}
 	
 	/**
-	 * deleteVitalSign method is used to delete vital sign detail.
-	 * @param patientId,checkupDate
+	 * deleteVitalSign method is used to delete vital sign detail based on patient id.
+	 * @param patientId
+	 * @param checkupDate
 	 * @return String
 	 */
 	@DeleteMapping(path="/{patientId}/{checkupDate}")

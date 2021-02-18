@@ -35,10 +35,12 @@ public class VitalSignServiceImpl implements VitalSignService {
 	private final VitalSignRepository vitalSignRepository;
 	private final PatientClient patientClient;
 
+	@Override
 	public VitalSignDto addVitalSign(VitalSignDto vitalSignDto) {
 		return VitalSignConverter.convertToVitalSignDto(vitalSignRepository.save(VitalSignConverter.convertToVitalSignEntity(vitalSignDto)));
 	}
 
+	@Override
 	public VitalSignDto updateVitalSign(VitalSignDto vitalSignDto) {
 		VitalSign vitalSign = vitalSignRepository.findByPatientIdAndCheckupDate(vitalSignDto.getPatientId(), vitalSignDto.getCheckupDate());
 		if(Objects.nonNull(vitalSign)) {
@@ -48,6 +50,7 @@ public class VitalSignServiceImpl implements VitalSignService {
 		}
 	}
 
+	@Override
 	public VitalSignDto getVitalSignById(int patientId, Date checkupDate) {
 		VitalSign vitalSign = vitalSignRepository.findByPatientIdAndCheckupDate(patientId,checkupDate);
 		if(Objects.nonNull(vitalSign)) {
@@ -57,10 +60,12 @@ public class VitalSignServiceImpl implements VitalSignService {
 		}
 	}
 	
+	@Override
 	public PatientDto getPatientById(int patientId) {
 		return patientClient.getPatientById(patientId);
 	}
 
+	@Override
 	public String deleteVitalSign(int patientId,Date checkupDate) {
 		VitalSign vitalSign = vitalSignRepository.findByPatientIdAndCheckupDate(patientId,checkupDate);
 		if(Objects.nonNull(vitalSign)) {
@@ -70,5 +75,4 @@ public class VitalSignServiceImpl implements VitalSignService {
 			throw new ResourceNotFoundException("Vital Sign not found for the id " + patientId);
 		}
 	}
-
 }
