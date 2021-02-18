@@ -29,34 +29,4 @@ public class RoleDto implements Serializable {
 	private LocalDateTime createdAt;
 	private String updatedBy;
 	private LocalDateTime updatedAt;
-	
-	public static Role convertRoleDomain(RoleDto roleDto) {
-		if (roleDto == null) {
-			return null;
-		}
-		Role role = new Role();
-		role.setRoleId(roleDto.getRoleId());
-		role.setRoleName(roleDto.getRoleName());
-		role.setRoles(roleDto.getRoles());
-		role.setCreatedAt(roleDto.getCreatedAt());
-		role.setCreatedBy(roleDto.getCreatedBy());
-		role.setUpdatedAt(roleDto.getUpdatedAt());
-		role.setUpdatedBy(roleDto.getUpdatedBy());
-		return role;
-	}
-
-	public static RoleDto convertRoleDto(Role role) {
-		if (role == null) {
-			return null;
-		}
-		RoleDto roleDto = new RoleDto();
-		roleDto.setRoleId(role.getRoleId());
-		roleDto.setRoleName(role.getRoleName());
-		roleDto.setRoles(role.getRoles());
-		roleDto.setCreatedAt(role.getCreatedAt());
-		roleDto.setCreatedBy(role.getCreatedBy());
-		roleDto.setUpdatedAt(role.getUpdatedAt());
-		roleDto.setUpdatedBy(role.getUpdatedBy());
-		return roleDto;
-	}
 }

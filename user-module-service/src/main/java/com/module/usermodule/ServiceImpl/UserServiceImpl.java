@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.module.usermodule.Dto.RoleDto;
 import com.module.usermodule.Dto.UserDto;
 import com.module.usermodule.ExceptionHandling.ResourceNotFoundException;
 import com.module.usermodule.Model.Role;
@@ -23,6 +22,7 @@ import com.module.usermodule.Repository.RoleRepository;
 import com.module.usermodule.Repository.UserRepository;
 import com.module.usermodule.Service.UserService;
 import com.module.usermodule.Util.JwtUtil;
+import com.module.usermodule.Util.UserConverter;
 
 /**
  * UserServiceImpl which implements UserService and UserDetailsService.
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserDto user = UserDto.convertUserDto(userRepository.findByUserName(username));
+		UserDto user = UserConverter.convertToUserDto(userRepository.findByUserName(username));
 		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),
 				new ArrayList<>());
 	}
@@ -72,14 +72,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	
 	@Override
 	public UserDto addUser(UserDto userDto) {
-		return UserDto.convertUserDto(userRepository.save(UserDto.convertUserDomain(userDto)));
+		return UserConverter.convertToUserDto(userRepository.save(UserConverter.convertToUserEntity(userDto)));
 	}
 
 	@Override
 	public UserDto getUserByName(String username) {
 		User user = userRepository.findByUserName(username);
 		if(Objects.nonNull(user)) {
-			return UserDto.convertUserDto(user);
+			return UserConverter.convertToUserDto(user);
 		}else {
 			throw new ResourceNotFoundException("User Information not found for the name " + username);
 		}
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Override
 	public List<UserDto> getAllUser() {
-		return userRepository.findAll().stream().map(user -> UserDto.convertUserDto(user))
+		return userRepository.findAll().stream().map(user -> UserConverter.convertToUserDto(user))
 				.collect(Collectors.toList());
 	}
 	
@@ -104,9 +104,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	
 	@Override
 	public UserDto updateUser(UserDto userDto) {
-		User user = userRepository.findByUserName(userDto.getUserName());
+		User user = userRepository.findByUserId(userDto.getUserId());
 		if(Objects.nonNull(user)) {
-			return UserDto.convertUserDto(userRepository.save(UserDto.convertUserDomain(userDto)));
+			return UserConverter.convertToUserDto(userRepository.save(UserConverter.convertToUserEntity(userDto)));
 		}else {
 			throw new ResourceNotFoundException("User Information not found for the name " + userDto.getUserName());
 		}

@@ -12,6 +12,7 @@ import com.module.usermodule.Dto.RoleDto;
 import com.module.usermodule.Model.Role;
 import com.module.usermodule.Repository.RoleRepository;
 import com.module.usermodule.Service.RoleService;
+import com.module.usermodule.Util.RoleConverter;
 
 /**
  * RoleServiceImpl which implements RoleService.
@@ -32,18 +33,18 @@ public class RoleServiceImpl implements RoleService{
 	
 	@Override
 	public RoleDto addRole(RoleDto roleDto) {
-		return RoleDto.convertRoleDto(roleRepository.save(RoleDto.convertRoleDomain(roleDto)));
+		return RoleConverter.convertToRoleDto(roleRepository.save(RoleConverter.convertToRoleEntity(roleDto)));
 	}
 
 	@Override
 	public List<RoleDto> getRoleDetails() {
-		return roleRepository.findAll().stream().map(role -> RoleDto.convertRoleDto(role))
+		return roleRepository.findAll().stream().map(role -> RoleConverter.convertToRoleDto(role))
 				.collect(Collectors.toList());
 	}
 
 	@Override
 	public RoleDto getRoleById(int roleId) {
-		return RoleDto.convertRoleDto(roleRepository.findByRoleId(roleId));
+		return RoleConverter.convertToRoleDto(roleRepository.findByRoleId(roleId));
 	}
 
 	@Override
@@ -59,7 +60,7 @@ public class RoleServiceImpl implements RoleService{
 
 	@Override
 	public RoleDto updateRole(RoleDto roleDto) {
-		return RoleDto.convertRoleDto(roleRepository.save(RoleDto.convertRoleDomain(roleDto)));
+		return RoleConverter.convertToRoleDto(roleRepository.save(RoleConverter.convertToRoleEntity(roleDto)));
 	}
 
 }
