@@ -56,7 +56,7 @@ public class PatientController {
 	
 	/**
 	 * getAllPatient method is used to fetch all patient details.
-	 * @return List
+	 * @return List of PatientDto
 	 */
 	@ApiOperation(value = "Fetch Patient Detail", response = Iterable.class)
 	@GetMapping(path="/",produces= {"application/json"})
@@ -68,7 +68,7 @@ public class PatientController {
 	}
 	
 	/**
-	 * getPatientById method is used to get specific patient detail.
+	 * getPatientById method is used to fetch patient detail based on patient id.
 	 * @param patientId
 	 * @return PatientDto
 	 */
@@ -94,7 +94,7 @@ public class PatientController {
 	}
 	
 	/**
-	 * deletePatient method is used to delete patient detail.
+	 * deletePatient method is used to delete patient detail based on patient id.
 	 * @param patientId
 	 * @return String
 	 */

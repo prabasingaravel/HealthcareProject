@@ -29,6 +29,12 @@ public class QueryDSLService {
 		this.elasticsearchOperations = elasticsearchOperations;
 	}
 	
+	/**
+	 * searchByMultiField method is used to search the patient based on name and age.
+	 * @param firstName
+	 * @param age
+	 * @return PatientIndex
+	 */
 	public SearchHits<PatientIndex> searchMultiField(String firstName, int age){
 		QueryBuilder query = QueryBuilders.boolQuery().must(QueryBuilders
 				.matchQuery("patientFirstName", firstName)).must(QueryBuilders.matchQuery("age", age));
@@ -37,6 +43,11 @@ public class QueryDSLService {
 		return patient;
 	}
 	
+	/**
+	 * getEmployeeSearchData method is used to search the patient based on name.
+	 * @param firstName
+	 * @return PatientIndex
+	 */
 	public SearchHits<PatientIndex> getEmployeeSearchData(String input){
 		String search = ".*" + input + ".*";
 		NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
@@ -45,6 +56,11 @@ public class QueryDSLService {
 		return patient;
 	}
 	
+	/**
+	 * doMultiMatchQuery method is used to search the patient based on first name or last name.
+	 * @param text
+	 * @return PatientIndex
+	 */
 	public SearchHits<PatientIndex> multiMatchQuery(String text){
 		NativeSearchQuery nativeSearchQuery = new NativeSearchQueryBuilder()
 				.withQuery(QueryBuilders.multiMatchQuery(text)).withFields("patientFirstName")

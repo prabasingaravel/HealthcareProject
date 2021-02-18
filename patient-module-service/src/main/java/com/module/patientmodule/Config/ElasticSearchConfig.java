@@ -21,6 +21,11 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @ComponentScan(basePackages = { "com.module.patientmodule.Util.QueryDSLService" })
 public class ElasticSearchConfig {
 
+	/**
+	 * client is used to build the rest clients configuration.
+	 * @return RestHighLevelClient
+	 *
+	 */
 	@Bean
 	public RestHighLevelClient client() {
 		ClientConfiguration clientConfiguration = ClientConfiguration.builder()
@@ -29,6 +34,11 @@ public class ElasticSearchConfig {
 		return RestClients.create(clientConfiguration).rest();
 	}
 	
+	/**
+	 * elasticsearchTemplate is used to generate elastic search rest template.
+	 * @return ElasticsearchOperations
+	 *
+	 */
 	@Bean
 	public ElasticsearchOperations elasticsearchTemplate() {
 		return new ElasticsearchRestTemplate(client());

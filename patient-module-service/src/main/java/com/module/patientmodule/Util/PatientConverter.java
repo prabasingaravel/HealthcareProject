@@ -11,6 +11,11 @@ import com.module.patientmodule.Model.Patient;
  */
 public class PatientConverter {
 
+	/**
+	 * convertToPatientEntity method is used to convert patient Dto to patient entity.
+	 * @param patientDto
+	 * @return Patient
+	 */
 	public static Patient convertToPatientEntity(PatientDto patientDto) {
 		if (patientDto == null) {
 			return null;
@@ -37,6 +42,11 @@ public class PatientConverter {
 		return patient;
 	}
 
+	/**
+	 * convertToPatientDto method is used to convert patient entity to patient dto.
+	 * @param patient
+	 * @return PatientDto
+	 */
 	public static PatientDto convertToPatientDto(Patient patient) {
 		if (patient == null) {
 			return null;

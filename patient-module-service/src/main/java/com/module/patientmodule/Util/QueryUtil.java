@@ -8,6 +8,10 @@ package com.module.patientmodule.Util;
  */
 public class QueryUtil {
 	
+	/**
+	 * createQueryForAll method is used to create query for fetching all patient details.
+	 * @return String
+	 */
 	public String createQueryForAll() {
 		return "select p from Patient p";
 	}

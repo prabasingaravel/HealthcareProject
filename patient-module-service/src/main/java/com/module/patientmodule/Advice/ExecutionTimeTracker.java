@@ -19,6 +19,13 @@ public class ExecutionTimeTracker {
 
 	Logger logger = LoggerFactory.getLogger(ExecutionTimeTracker.class);
 	
+	/**
+	 * trackTime is used to calculate the execution time of the method.
+	 * @param joinPoint
+	 * @return Object
+	 * @throws Throwable
+	 *
+	 */
 	@Around("@annotation(com.module.patientmodule.Advice.TrackExecutionTime)")
 	public Object trackTime(ProceedingJoinPoint joinPoint) throws Throwable {
 		long startTime = System.currentTimeMillis();

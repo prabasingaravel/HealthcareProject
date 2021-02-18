@@ -14,6 +14,11 @@ import com.module.patientmodule.Index.PatientIndex;
 @Repository
 public interface ElasticRepository extends ElasticsearchRepository<PatientIndex, Integer>{
 
+	/**
+	 * findByPatientId method is used to fetch patient detail based on patient id.
+	 * @param patientId
+	 * @return PatientIndex
+	 */
 	PatientIndex findByPatientId(int patientId);
 
 }

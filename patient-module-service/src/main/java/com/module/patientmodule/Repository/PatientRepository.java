@@ -16,6 +16,11 @@ import com.module.patientmodule.Model.Patient;
 @EnableJpaRepositories
 public interface PatientRepository extends JpaRepository<Patient, Integer>{
 
+	/**
+	 * getPatientById method is used to fetch patient detail based on patient id.
+	 * @param patientId
+	 * @return Patient
+	 */
 	Patient getPatientById(int patientId);
 	
 }

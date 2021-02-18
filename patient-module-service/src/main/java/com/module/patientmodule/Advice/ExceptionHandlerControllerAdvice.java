@@ -16,6 +16,12 @@ import com.module.patientmodule.ExceptionHandling.ResourceNotFoundException;
 @RestControllerAdvice
 public class ExceptionHandlerControllerAdvice {
 
+	/**
+	 * handleResourceNotFound is used to handle the resource not found exception
+	 * @param exception
+	 * @return String
+	 *
+	 */
 	@ExceptionHandler(ResourceNotFoundException.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public String handleResourceNotFound(final ResourceNotFoundException exception) {
