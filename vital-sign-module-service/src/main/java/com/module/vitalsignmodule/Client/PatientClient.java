@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.module.vitalsignmodule.Dto.PatientDto;
 
-@FeignClient(name="${healthcare.module.patient.name}",url="${healthcare.module.patient.uri}")
+@FeignClient(name="${healthcare.module.patient.name}",url="${healthcare.module.patient.uri}",decode404 = true)
 public interface PatientClient {
 	
 	@GetMapping(path="/{patientId}",produces= {"application/json"})
