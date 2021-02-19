@@ -2,10 +2,11 @@ package com.module.vitalsignmodule.Client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.module.vitalsignmodule.Config.PatientClientConfig;
 import com.module.vitalsignmodule.Dto.PatientDto;
+
+import feign.Param;
 
 /**
  * PatientClient is used to communicate the patient service.
@@ -21,6 +22,7 @@ public interface PatientClient {
 	 * @param patientId
 	 * @return PatientDto
 	 */
+//	@RequestLine("GET /{patientId}")
 	@GetMapping(path="/{patientId}",produces= {"application/json"})
-	public PatientDto getPatientById(@PathVariable int patientId);
+	public PatientDto getPatientById(@Param("patientId") int patientId);
 }
