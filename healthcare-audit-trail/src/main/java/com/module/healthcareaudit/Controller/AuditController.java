@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.module.healthcareaudit.Model.Audit;
 import com.module.healthcareaudit.Service.AuditService;
 
+/**
+ * AuditController is used for Audit trail end point.
+ * @author Praba Singaravel
+ * @since 21.02
+ *
+ */
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/audits")
@@ -26,13 +32,24 @@ public class AuditController {
 		this.auditService = auditService;
 	}
 	
+	/**
+	 * getAllAudit method is used to fetch Audit information.
+	 * @return List<Audit>
+	 */
 	@GetMapping("/")
 	public List<Audit> getAllAudit() {
 		return auditService.getAllAudit();
 	}
 	
+	/**
+	 * getUserAudit method is used to fetch Audit information based on date.
+	 * @param fromDate
+	 * @param toDate
+	 * @param serviceName
+	 * @return List<Audit>
+	 */
 	@GetMapping("/{fromDate}/{toDate}/{serviceName}")
-	public List<Audit> getUserAudit(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") String fromDate,
+	public List<Audit> getAudit(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") String fromDate,
 			@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") String toDate,
 			@PathVariable String serviceName) throws ParseException {
 		return auditService.doFilter(fromDate, toDate, serviceName);

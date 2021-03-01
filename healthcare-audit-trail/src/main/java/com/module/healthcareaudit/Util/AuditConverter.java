@@ -3,12 +3,18 @@ package com.module.healthcareaudit.Util;
 import com.module.healthcareaudit.Dto.AuditDto;
 import com.module.healthcareaudit.Model.Audit;
 
+/**
+ * AuditConverter is used to convert entity to dto and dto to entity.
+ * @author Praba Singaravel
+ * @since 21.02
+ *
+ */
 public class AuditConverter {
 
 	/**
-	 * convertToLaptopDto method is used to convert laptop entity to laptop dto.
-	 * @param laptop
-	 * @return LaptopDto
+	 * convertToAuditDto method is used to convert audit entity to audit dto.
+	 * @param audit
+	 * @return AuditDto
 	 */
 	public static AuditDto convertToAuditDto(Audit audit) {
 		if (audit == null) {
@@ -28,9 +34,9 @@ public class AuditConverter {
 	}
 	
 	/**
-	 * convertToLaptopEntity method is used to convert laptop Dto to laptop entity.
-	 * @param laptopDto
-	 * @return Laptop
+	 * convertToAuditEntity method is used to convert audit Dto to audit entity.
+	 * @param auditDto
+	 * @return Audit
 	 */
 	public static Audit convertToAuditEntity(AuditDto auditDto) {
 		if (auditDto == null) {

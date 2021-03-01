@@ -1,7 +1,6 @@
 package com.module.healthcareaudit;
 
 import java.text.ParseException;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -33,7 +32,6 @@ public class HealthcareAuditTrailApplication {
 		auditDto.setAction(auditService.findAction(auditDto.getRequest(),auditDto.getServiceName()));
 		Audit audit= AuditConverter.convertToAuditEntity(auditDto);
 		auditRepository.save(audit);
-		System.out.println(audit);
 	}
 	
 	public static void main(String[] args) {

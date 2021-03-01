@@ -6,6 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * AuditDto represent audit table.
+ * @author Praba Singaravel
+ * @since 21.02
+ *
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -10,16 +10,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Audit which represent document for audit table.
+ * @author Praba Singaravel
+ * @since 21.02
+ *
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "Audit")
 public class Audit implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	
+	static final long serialVersionUID = 1L;
 	
 	@Id
 	private String id;
