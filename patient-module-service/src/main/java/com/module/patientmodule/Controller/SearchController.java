@@ -21,12 +21,13 @@ import com.module.patientmodule.Util.QueryDSLService;
 @RequestMapping("/searchpatients")
 public class SearchController {
 
+	private final QueryDSLService queryDSLService;
+	
 	@Lazy
 	@Autowired
 	public SearchController(QueryDSLService queryDSLService) {
 		this.queryDSLService = queryDSLService;
 	}
-	private final QueryDSLService queryDSLService;
 	
 	/**
 	 * searchByMultiField method is used to search the patient based on name and age.

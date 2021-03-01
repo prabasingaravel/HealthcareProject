@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.module.patientmodule.Advice.AuditTrailLogging;
 import com.module.patientmodule.Advice.TrackExecutionTime;
 import com.module.patientmodule.Advice.TrackLogging;
 import com.module.patientmodule.Dto.PatientDto;
@@ -33,13 +34,13 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/patients")
 public class PatientController {
 	
+	private final PatientService patientService;
+	
 	@Lazy
 	@Autowired
 	public PatientController(PatientService patientService) {
 		this.patientService = patientService;
 	}
-	
-	private final PatientService patientService;
 	
 	/**
 	 * addPatient method is used to register patient.
@@ -50,6 +51,7 @@ public class PatientController {
 	@PostMapping(path="/",consumes= {"application/json"})
 	@TrackExecutionTime
 	@TrackLogging
+	@AuditTrailLogging
 	public PatientDto addPatient(@RequestBody PatientDto patientDto) {
 		return patientService.addPatient(patientDto);
 	}
@@ -86,9 +88,9 @@ public class PatientController {
 	 */
 	@ApiOperation(value = "Update Patient Detail", response = PatientDto.class)
 	@PutMapping(path="/",consumes= {"application/json"})
-	@CachePut(value = "patient")
 	@TrackExecutionTime
 	@TrackLogging
+	@AuditTrailLogging
 	public PatientDto updatePatient(@RequestBody PatientDto patientDto) {
 		return patientService.updatePatient(patientDto);
 	}

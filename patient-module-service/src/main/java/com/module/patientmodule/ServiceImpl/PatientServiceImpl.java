@@ -30,6 +30,10 @@ import com.module.patientmodule.Util.QueryUtil;
 @Service
 public class PatientServiceImpl implements PatientService{
 	
+	private final EntityManagerFactory entityManager;
+	private final PatientRepository patientRepository;
+	private final ElasticRepository elasticRepository;
+	
 	@Lazy
 	@Autowired
 	public PatientServiceImpl(PatientRepository patientRepository, EntityManagerFactory entityManager,
@@ -38,9 +42,6 @@ public class PatientServiceImpl implements PatientService{
 		this.entityManager = entityManager;
 		this.elasticRepository = elasticRepository;
 	}
-	private final EntityManagerFactory entityManager;
-	private final PatientRepository patientRepository;
-	private final ElasticRepository elasticRepository;
 	
 	@Override
 	public PatientDto addPatient(PatientDto patientDto) {
