@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.module.usermodule.Advice.AuditTrailLogging;
 import com.module.usermodule.Dto.UserDto;
 import com.module.usermodule.ExceptionHandling.ResourceNotFoundException;
 import com.module.usermodule.Model.Role;

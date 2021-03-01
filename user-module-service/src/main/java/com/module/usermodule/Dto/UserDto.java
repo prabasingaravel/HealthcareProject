@@ -3,8 +3,6 @@ package com.module.usermodule.Dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import com.module.usermodule.Model.User;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

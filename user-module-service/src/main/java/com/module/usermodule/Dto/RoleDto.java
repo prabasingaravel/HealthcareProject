@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.module.usermodule.Model.Role;
 import com.module.usermodule.Model.User;
 
 import lombok.AllArgsConstructor;
