@@ -3,15 +3,14 @@ package com.module.vitalsignmodule.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.module.vitalsignmodule.Client.PatientClient;
-
-import feign.Contract;
-import feign.Feign;
-import feign.RequestInterceptor;
 import feign.auth.BasicAuthRequestInterceptor;
-import feign.jackson.JacksonDecoder;
-import feign.jackson.JacksonEncoder;
 
+/**
+ * PatientClientConfig is used to generate patient client for feign.
+ * @author Praba Singaravel
+ * @since 21.02
+ *
+ */
 @Configuration
 public class PatientClientConfig {
 	  

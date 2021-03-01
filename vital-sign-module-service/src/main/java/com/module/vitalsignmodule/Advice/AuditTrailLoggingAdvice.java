@@ -18,6 +18,12 @@ import com.module.vitalsignmodule.Dto.AuditDto;
 import com.module.vitalsignmodule.Dto.VitalSignDto;
 import com.module.vitalsignmodule.Repository.VitalSignRepository;
 
+/**
+ * AuditTrailLoggingAdvice is used for Auditing the CRUD operation.
+ * @author Praba Singaravel
+ * @since 21.02
+ *
+ */
 @Aspect
 @Component
 public class AuditTrailLoggingAdvice {
@@ -35,12 +41,19 @@ public class AuditTrailLoggingAdvice {
 		this.vitalsignRepository = vitalsignRepository;
 	}
 	
+	/**
+	 * auditLogger is used to auditing the controller method.
+	 * @param joinPoint
+	 * @return Object
+	 * @throws Throwable
+	 *
+	 */
 	@Around("@annotation(com.module.vitalsignmodule.Advice.AuditTrailLogging)")
-	public Object auditLogger(ProceedingJoinPoint pjp) throws Throwable {
+	public Object auditLogger(ProceedingJoinPoint joinPoint) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		AuditDto auditDto = new AuditDto();
-		String methodName = pjp.getSignature().getName();
-		Object[] array = pjp.getArgs();
+		String methodName = joinPoint.getSignature().getName();
+		Object[] array = joinPoint.getArgs();
 		long millis = System.currentTimeMillis();
 		java.sql.Date date = new java.sql.Date(millis);
 		java.sql.Time time = new java.sql.Time(millis);
@@ -64,7 +77,7 @@ public class AuditTrailLoggingAdvice {
 		} else {
 			auditDto.setOldValue(StringUtils.EMPTY);
 		}
-		Object object = pjp.proceed();
+		Object object = joinPoint.proceed();
 		auditDto.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
 		auditDto.setServiceName("VitalSign");
 		auditDto.setRequest(methodName);

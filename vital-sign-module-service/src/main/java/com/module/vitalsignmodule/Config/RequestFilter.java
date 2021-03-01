@@ -1,4 +1,4 @@
-package com.module.vitalsignmodule.Advice;
+package com.module.vitalsignmodule.Config;
 
 import java.io.IOException;
 
@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
+/**
+ * RequestFilter is used for custom authentication.
+ * @author Praba Singaravel
+ * @since 21.02
+ *
+ */
 @Component
 public class RequestFilter extends GenericFilterBean {
 
