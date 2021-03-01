@@ -1,5 +1,6 @@
 package com.module.vitalsignmodule.Controller;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.module.vitalsignmodule.Advice.AuditTrailLogging;
 import com.module.vitalsignmodule.Advice.TrackExecutionTime;
 import com.module.vitalsignmodule.Advice.TrackLogging;
 import com.module.vitalsignmodule.Dto.PatientDto;
@@ -31,13 +33,13 @@ import com.module.vitalsignmodule.Service.VitalSignService;
 @RequestMapping("/vitalsigns")
 public class VitalSignController {
 
+	private final VitalSignService vitalSignSerivce;
+	
 	@Lazy
 	@Autowired
 	public VitalSignController(VitalSignService vitalSignSerivce) {
 		this.vitalSignSerivce = vitalSignSerivce;
 	}
-	
-	private final VitalSignService vitalSignSerivce;
 	
 	/**
 	 * addVitalSign method is used to register vital sign.
@@ -47,6 +49,7 @@ public class VitalSignController {
 	@PostMapping(path="/",consumes= {"application/json"})
 	@TrackExecutionTime
 	@TrackLogging
+	@AuditTrailLogging
 	public VitalSignDto addVitalSign(@RequestBody VitalSignDto vitalSignDto) {
 		return vitalSignSerivce.addVitalSign(vitalSignDto);
 	}
@@ -78,14 +81,20 @@ public class VitalSignController {
 	
 	/**
 	 * updateVitalSign method is used to update vital sign detail.
+	 * @param patientId
+	 * @param checkupDate
 	 * @param vitalSignDto
 	 * @return VitalSignDto
+	 * @throws ParseException 
 	 */
-	@PutMapping(path="/",consumes= {"application/json"})
+	@PutMapping(path="/{patientId}/{checkupDate}/",consumes= {"application/json"})
 	@TrackExecutionTime
 	@TrackLogging
-	public VitalSignDto updateVitalSign(@RequestBody VitalSignDto vitalSignDto) {
-		return vitalSignSerivce.updateVitalSign(vitalSignDto);
+	@AuditTrailLogging
+	public VitalSignDto updateVitalSign(@PathVariable int patientId, 
+			@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date checkupDate,
+			@RequestBody VitalSignDto vitalSignDto) throws ParseException {
+		return vitalSignSerivce.updateVitalSign(patientId, checkupDate, vitalSignDto);
 	}
 	
 	/**
@@ -98,7 +107,8 @@ public class VitalSignController {
 	@TrackExecutionTime
 	@TrackLogging
 	@CacheEvict(value = "vitalsign", key="#patientId")
-	public String deleteVitalSign(@PathVariable int patientId, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date checkupDate) {
+	public String deleteVitalSign(@PathVariable int patientId,
+			@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date checkupDate) {
 		return vitalSignSerivce.deleteVitalSign(patientId,checkupDate);
 	}
 }

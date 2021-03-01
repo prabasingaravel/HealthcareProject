@@ -3,7 +3,14 @@ package com.module.vitalsignmodule.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.module.vitalsignmodule.Client.PatientClient;
+
+import feign.Contract;
+import feign.Feign;
+import feign.RequestInterceptor;
 import feign.auth.BasicAuthRequestInterceptor;
+import feign.jackson.JacksonDecoder;
+import feign.jackson.JacksonEncoder;
 
 @Configuration
 public class PatientClientConfig {
@@ -14,8 +21,13 @@ public class PatientClientConfig {
 	}
 	
 //	@Bean
+//	public Contract feignContract() {
+//		return new Contract.Default();
+//	}
+//	
+//	@Bean
 //	public PatientClient patientServiceClient() {
-//		final BasicAuthRequestInterceptor authInterceptor = new BasicAuthRequestInterceptor("user", "password");
+//		final RequestInterceptor authInterceptor = new BasicAuthRequestInterceptor("user", "password");
 //		return Feign.builder()
 //				.encoder(new JacksonEncoder())
 //				.decoder(new JacksonDecoder())

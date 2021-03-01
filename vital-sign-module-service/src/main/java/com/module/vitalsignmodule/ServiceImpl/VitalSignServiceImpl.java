@@ -1,10 +1,15 @@
 package com.module.vitalsignmodule.ServiceImpl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import com.module.vitalsignmodule.Client.PatientClient;
@@ -25,6 +30,9 @@ import com.module.vitalsignmodule.Util.VitalSignConverter;
 @Service
 public class VitalSignServiceImpl implements VitalSignService {
 	
+	private final VitalSignRepository vitalSignRepository;
+	private final PatientClient patientClient;
+	
 	@Lazy
 	@Autowired
 	public VitalSignServiceImpl(VitalSignRepository vitalSignRepository, PatientClient patientClient) {
@@ -32,17 +40,14 @@ public class VitalSignServiceImpl implements VitalSignService {
 		this.patientClient = patientClient;
 	}
 	
-	private final VitalSignRepository vitalSignRepository;
-	private final PatientClient patientClient;
-
 	@Override
 	public VitalSignDto addVitalSign(VitalSignDto vitalSignDto) {
 		return VitalSignConverter.convertToVitalSignDto(vitalSignRepository.save(VitalSignConverter.convertToVitalSignEntity(vitalSignDto)));
 	}
 
 	@Override
-	public VitalSignDto updateVitalSign(VitalSignDto vitalSignDto) {
-		VitalSign vitalSign = vitalSignRepository.findByPatientIdAndCheckupDate(vitalSignDto.getPatientId(), vitalSignDto.getCheckupDate());
+	public VitalSignDto updateVitalSign(int patientId, Date checkupDate, VitalSignDto vitalSignDto) throws ParseException {
+		VitalSign vitalSign = vitalSignRepository.findByPatientIdAndCheckupDate(patientId, checkupDate);
 		if(Objects.nonNull(vitalSign)) {
 			return VitalSignConverter.convertToVitalSignDto(vitalSignRepository.save(VitalSignConverter.convertToVitalSignEntity(vitalSignDto)));
 		}else {

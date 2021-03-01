@@ -1,5 +1,6 @@
 package com.module.vitalsignmodule.Service;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import com.module.vitalsignmodule.Dto.PatientDto;
@@ -24,8 +25,9 @@ public interface VitalSignService {
 	 * updateVitalSign method is used to update vital sign detail.
 	 * @param vitalSignDto
 	 * @return VitalSignDto
+	 * @throws ParseException 
 	 */
-	public VitalSignDto updateVitalSign(VitalSignDto vitalSignDto);
+	public VitalSignDto updateVitalSign(int patientId, Date checkupDate, VitalSignDto vitalSignDto) throws ParseException;
 	
 	/**
 	 * getVitalSignById method used to fetch the vital sign detail based on patient id and checkup Date.

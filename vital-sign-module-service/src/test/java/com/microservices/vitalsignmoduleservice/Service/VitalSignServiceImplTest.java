@@ -3,6 +3,8 @@ package com.microservices.vitalsignmoduleservice.Service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.text.ParseException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +43,14 @@ public class VitalSignServiceImplTest {
 	}
 	
 	@Test
-	public void updateVitalSignTest() {
+	public void updateVitalSignTest() throws ParseException {
 		VitalSignDto vitalSignDto = VitalSignPrototype.vitalSignDto();
 		when(vitalSignRepository.findByPatientIdAndCheckupDate(vitalSignDto.getPatientId(),
 				vitalSignDto.getCheckupDate())).thenReturn(VitalSignConverter.convertToVitalSignEntity(vitalSignDto));
 		when(vitalSignRepository.save(VitalSignConverter.convertToVitalSignEntity(vitalSignDto)))
 		.thenReturn(VitalSignConverter.convertToVitalSignEntity(vitalSignDto));
-		VitalSignDto vitalSignDtoResponse = vitalSignServiceImpl.updateVitalSign(vitalSignDto);
+		VitalSignDto vitalSignDtoResponse = vitalSignServiceImpl.updateVitalSign(vitalSignDto.getPatientId(),
+				vitalSignDto.getCheckupDate(),vitalSignDto);
 		assertEquals(vitalSignDtoResponse, vitalSignDto);
 	}
 	
