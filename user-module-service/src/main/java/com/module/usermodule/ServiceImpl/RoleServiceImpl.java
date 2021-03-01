@@ -23,14 +23,14 @@ import com.module.usermodule.Util.RoleConverter;
 @Service
 public class RoleServiceImpl implements RoleService{
 
+	private final RoleRepository roleRepository;
+	
 	@Lazy
 	@Autowired
 	public RoleServiceImpl(RoleRepository roleRepository) {
 		this.roleRepository = roleRepository;
 	}
 
-	private final RoleRepository roleRepository;
-	
 	@Override
 	public RoleDto addRole(RoleDto roleDto) {
 		return RoleConverter.convertToRoleDto(roleRepository.save(RoleConverter.convertToRoleEntity(roleDto)));

@@ -13,3 +13,18 @@ spring:
     
 server:
   port: 8081
+zuul:
+  ignored-patterns: /actuator/**
+  routes:
+    patients:
+      path: /patients/**
+      service-id: patient-module-api
+      strip-prefix: false
+    patientsearch:
+      path: /searchpatients/**
+      service-id: patient-module-api
+      strip-prefix: false
+    vitalsign:
+      path: /vitalsigns/**
+      service-id: vitalsign-module-api
+      strip-prefix: false

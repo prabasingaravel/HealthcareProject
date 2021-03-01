@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.module.usermodule.Advice.AuditTrailLogging;
 import com.module.usermodule.Advice.TrackExecutionTime;
 import com.module.usermodule.Advice.TrackLogging;
 import com.module.usermodule.Dto.UserDto;
@@ -33,13 +34,13 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/users")
 public class UserController {
 
+	private final UserService userService;
+	
 	@Lazy
 	@Autowired
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
-
-	private final UserService userService;
 
 	/**
 	 * addUser method is used to register user.
@@ -50,6 +51,7 @@ public class UserController {
 	@ApiOperation(value = "Insert User Detail", response = UserDto.class)
 	@TrackExecutionTime
 	@TrackLogging
+	@AuditTrailLogging
 	public UserDto addUser(@RequestBody UserDto userDto) {
 		return userService.addUser(userDto);
 	}
@@ -60,7 +62,6 @@ public class UserController {
 	 * @return UserDto
 	 */
 	@GetMapping(path="/{userName}",produces= {"application/json"})
-	@Cacheable(value = "user", key = "#userName")
 	@ApiOperation(value = "Fetch Specific User Detail", response = UserDto.class)
 	@TrackExecutionTime
 	@TrackLogging
@@ -101,10 +102,10 @@ public class UserController {
 	 * @return UserDto
 	 */
 	@PutMapping(path="/", consumes= {"application/json"})
-	@CachePut(value = "user", key="#userId")
 	@ApiOperation(value = "Update User Detail", response = UserDto.class)
 	@TrackExecutionTime
 	@TrackLogging
+	@AuditTrailLogging
 	public UserDto updateUser(@RequestBody UserDto userDto) {
 		return userService.updateUser(userDto);
 	}

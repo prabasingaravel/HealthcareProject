@@ -28,15 +28,15 @@ import com.module.usermodule.ServiceImpl.UserServiceImpl;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
+	private final UserServiceImpl userServiceImpl;
+	private final JwtFilter jwtFilter;
+	
 	@Lazy
 	@Autowired
 	public SecurityConfig(UserServiceImpl userServiceImpl, JwtFilter jwtFilter) {
 		this.userServiceImpl = userServiceImpl;
 		this.jwtFilter = jwtFilter;
 	}
-	
-	private final UserServiceImpl userServiceImpl;
-	private final JwtFilter jwtFilter;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers("/users/authenticate","/actuator/**").permitAll()
+		http.csrf().disable().authorizeRequests().antMatchers("/users/authenticate", "/actuator/**", "/beans/reset", "/swagger**").permitAll()
 			.anyRequest().authenticated().and().exceptionHandling().and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class);

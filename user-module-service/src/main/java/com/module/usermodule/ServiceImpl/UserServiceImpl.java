@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.module.usermodule.Advice.AuditTrailLogging;
 import com.module.usermodule.Dto.UserDto;
 import com.module.usermodule.ExceptionHandling.ResourceNotFoundException;
 import com.module.usermodule.Model.Role;
@@ -33,6 +34,11 @@ import com.module.usermodule.Util.UserConverter;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
+	private final UserRepository userRepository;
+	private final RoleRepository roleRepository;
+	private final JwtUtil jwtUtil;
+	private final AuthenticationManager authenticationManager;
+	
 	@Lazy
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository, AuthenticationManager authenticationManager,
@@ -42,11 +48,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		this.jwtUtil = jwtUtil;
 		this.roleRepository = roleRepository;
 	}
-
-	private final UserRepository userRepository;
-	private final RoleRepository roleRepository;
-	private final JwtUtil jwtUtil;
-	private final AuthenticationManager authenticationManager;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

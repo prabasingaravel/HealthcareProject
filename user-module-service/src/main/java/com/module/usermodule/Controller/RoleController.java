@@ -32,12 +32,14 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/roles")
 public class RoleController {
+	
+	private final RoleService roleService;
+	
 	@Lazy
 	@Autowired
 	public RoleController(RoleService roleService) {
 		this.roleService = roleService;
 	}
-	private final RoleService roleService;
 
 	/**
 	 * addRole method is used to register Role.

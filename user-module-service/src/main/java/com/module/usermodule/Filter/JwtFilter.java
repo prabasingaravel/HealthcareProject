@@ -28,15 +28,15 @@ import com.module.usermodule.Util.JwtUtil;
 @Component
 public class JwtFilter extends OncePerRequestFilter{
 
+	private JwtUtil jwtUtil;
+	private UserServiceImpl userServiceImpl;
+	
 	@Lazy
 	@Autowired
 	public JwtFilter(JwtUtil jwtUtil,UserServiceImpl userServiceImpl) {
 		this.jwtUtil = jwtUtil;
 		this.userServiceImpl = userServiceImpl;
 	}
-	
-	private JwtUtil jwtUtil;
-	private UserServiceImpl userServiceImpl;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
