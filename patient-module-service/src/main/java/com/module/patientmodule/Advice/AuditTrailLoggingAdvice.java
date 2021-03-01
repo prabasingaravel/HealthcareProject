@@ -17,6 +17,12 @@ import com.module.patientmodule.Dto.AuditDto;
 import com.module.patientmodule.Dto.PatientDto;
 import com.module.patientmodule.Repository.PatientRepository;
 
+/**
+ * AuditTrailLoggingAdvice is used for Auditing the CRUD operation.
+ * @author Praba Singaravel
+ * @since 21.02
+ *
+ */
 @Aspect
 @Component
 public class AuditTrailLoggingAdvice {
@@ -34,6 +40,13 @@ public class AuditTrailLoggingAdvice {
 		this.patientRepository = patientRepository;
 	}
 	
+	/**
+	 * auditLogger is used to auditing the controller method.
+	 * @param joinPoint
+	 * @return Object
+	 * @throws Throwable
+	 *
+	 */
 	@Around("@annotation(com.module.patientmodule.Advice.AuditTrailLogging)")
 	public Object auditLogger(ProceedingJoinPoint pjp) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();

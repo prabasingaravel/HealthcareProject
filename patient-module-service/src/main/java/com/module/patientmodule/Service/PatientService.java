@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.module.patientmodule.Dto.PatientDto;
 
-import io.swagger.annotations.ApiOperation;
-
 /**
  * PatientService is used for patient table CRUD operation.
  * @author Praba Singaravel

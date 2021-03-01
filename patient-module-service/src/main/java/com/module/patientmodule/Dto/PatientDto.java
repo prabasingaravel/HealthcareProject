@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import com.module.patientmodule.Model.Patient;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

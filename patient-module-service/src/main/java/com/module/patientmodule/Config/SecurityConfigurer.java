@@ -10,6 +10,12 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.session.ConcurrentSessionFilter;
 
+/**
+ * SecurityConfigurer is used to authenticate the end point hits.
+ * @author Praba Singaravel
+ * @since 21.02
+ *
+ */	
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
