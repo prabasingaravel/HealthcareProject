@@ -1,0 +1,7 @@
+.datatable-filter-demo .p-datepicker {
+    min-width: 20rem;
+}
+
+.datatable-filter-demo .p-datepicker td {
+    font-weight: 300;
+}
