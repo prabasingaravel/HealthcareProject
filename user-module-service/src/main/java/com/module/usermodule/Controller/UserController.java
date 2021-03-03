@@ -73,7 +73,6 @@ public class UserController {
 	 * @return List of UserDto
 	 */
 	@GetMapping(path="/",produces= {"application/json"})
-	@Cacheable(value = "user")
 	@ApiOperation(value = "Fetch All User Detail", response = List.class)
 	@TrackExecutionTime
 	@TrackLogging
