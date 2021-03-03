@@ -30,23 +30,7 @@ public class AuditServiceImpl implements AuditService{
 	@Override
 	public List<Audit> doFilter(String fromDate, String toDate, String serviceName) throws ParseException {
 		List<Audit> result_all = auditRepository.findByServiceName(serviceName);
-		String dateStr1 = fromDate;
-		String dateStr2 = toDate;
-		dateStr1 = dateStr1.replace("-", "/");
-		dateStr2 = dateStr2.replace("-", "/");
-		Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(dateStr1);
-		Date date2 = new SimpleDateFormat("yyyy/MM/dd").parse(dateStr2);
-		List<Audit> result = new ArrayList<>();
-		for (int i = 0; i < result_all.size(); i++) {
-			result_all.get(i).getLogDate().setHours(00);
-			result_all.get(i).getLogDate().setMinutes(00);
-			if ((date1.equals(result_all.get(i).getLogDate()))
-					| (date1.before(result_all.get(i).getLogDate()) && date2.after(result_all.get(i).getLogDate()))
-					| (date2.equals(result_all.get(i).getLogDate()))) {
-				result.add(result_all.get(i));
-			}
-		}
-		return result;
+		return result_all;
 	}
 
 	@Override
@@ -88,6 +72,11 @@ public class AuditServiceImpl implements AuditService{
 	@Override
 	public List<Audit> getAllAudit() {
 		return auditRepository.findAll();
+	}
+
+	@Override
+	public List<Audit> getAuditByServiceName(String serviceName) {
+		return auditRepository.findByServiceName(serviceName);
 	}
 
 }

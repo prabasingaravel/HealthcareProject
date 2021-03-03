@@ -6,6 +6,8 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.module.healthcareaudit.Dto.DataDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,11 +37,9 @@ public class Audit implements Serializable{
 
 	private String action;
 	
-	private Object oldValue;
-	
-	private Object newValue;
+	private DataDto data;
 
-	private Date logDate;
+	private String logDate;
 
 	private String logTime;
 

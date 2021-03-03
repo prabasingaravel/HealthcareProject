@@ -1,7 +1,5 @@
 package com.module.healthcareaudit.Dto;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,11 +25,9 @@ public class AuditDto {
 
 	private String action;
 	
-	private Object oldValue;
+	private DataDto data;
 	
-	private Object newValue;
-
-	private Date logDate;
+	private String logDate;
 
 	private String logTime;
 

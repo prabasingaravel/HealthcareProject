@@ -43,4 +43,11 @@ public interface AuditService {
 	 */
 	List<Audit> getAllAudit();
 
+	/**
+	 * getAuditByServiceName method is used to fetch the audit details based on service Name
+	 * @param serviceName 
+	 * @return List<Audit>
+	 */
+	List<Audit> getAuditByServiceName(String serviceName);
+
 }

@@ -26,8 +26,7 @@ public class AuditConverter {
 		auditDto.setServiceName(audit.getServiceName());
 		auditDto.setRequest(audit.getRequest());
 		auditDto.setAction(audit.getAction());
-		auditDto.setOldValue(audit.getOldValue());
-		auditDto.setNewValue(audit.getNewValue());
+		auditDto.setData(audit.getData());
 		auditDto.setLogDate(audit.getLogDate());
 		auditDto.setLogTime(audit.getLogTime());
 		return auditDto;
@@ -48,8 +47,7 @@ public class AuditConverter {
 		audit.setServiceName(auditDto.getServiceName());
 		audit.setRequest(auditDto.getRequest());
 		audit.setAction(auditDto.getAction());
-		audit.setOldValue(auditDto.getOldValue());
-		audit.setNewValue(auditDto.getNewValue());
+		audit.setData(auditDto.getData());
 		audit.setLogDate(auditDto.getLogDate());
 		audit.setLogTime(auditDto.getLogTime());
 		return audit;

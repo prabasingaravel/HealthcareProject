@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -24,6 +26,8 @@ import com.module.healthcareaudit.Dto.AuditDto;
 @Configuration
 @EnableKafka
 public class KafkaConfig {
+	
+	Logger logger = LoggerFactory.getLogger(KafkaConfig.class);
 
 	@Bean
 	public ConsumerFactory<String, AuditDto> healthConsumerFactory(){
@@ -43,6 +47,9 @@ public class KafkaConfig {
 	public ConcurrentKafkaListenerContainerFactory<String, AuditDto> healthKafkaListenerContainerFactory(){
 		ConcurrentKafkaListenerContainerFactory<String, AuditDto> factory = new ConcurrentKafkaListenerContainerFactory<String, AuditDto>();
 		factory.setConsumerFactory(healthConsumerFactory());
+		factory.setErrorHandler(((exception, data) -> {
+			logger.error("Error in process with Exception {} and the record is {}", exception, data);
+        }));
 		return factory;
 	}
 }

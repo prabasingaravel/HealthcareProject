@@ -42,6 +42,16 @@ public class AuditController {
 	}
 	
 	/**
+	 * getAuditByServiceName method is used to fetch the audit details based on service Name
+	 * @param serviceName
+	 * @return List<Audit>
+	 */
+	@GetMapping("/{serviceName}")
+	public List<Audit> getAuditByServiceName(@PathVariable String serviceName) {
+		return auditService.getAuditByServiceName(serviceName);
+	}
+	
+	/**
 	 * getUserAudit method is used to fetch Audit information based on date.
 	 * @param fromDate
 	 * @param toDate
