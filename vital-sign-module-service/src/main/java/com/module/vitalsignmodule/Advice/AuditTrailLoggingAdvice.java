@@ -1,8 +1,9 @@
 package com.module.vitalsignmodule.Advice;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -10,13 +11,13 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.module.vitalsignmodule.Dto.AuditDto;
+import com.module.vitalsignmodule.Dto.DataDto;
 import com.module.vitalsignmodule.Dto.VitalSignDto;
 import com.module.vitalsignmodule.Repository.VitalSignRepository;
+import com.module.vitalsignmodule.Util.VitalSignConverter;
 
 /**
  * AuditTrailLoggingAdvice is used for Auditing the CRUD operation.
@@ -27,20 +28,20 @@ import com.module.vitalsignmodule.Repository.VitalSignRepository;
 @Aspect
 @Component
 public class AuditTrailLoggingAdvice {
-	
+
 	private final VitalSignRepository vitalsignRepository;
-	
+
 	KafkaTemplate<String, AuditDto> kafkaTemplate;
 
 	private static final String KAFKA_TOPIC = "Audit_Topic";
-	
+
 	@Autowired
 	public AuditTrailLoggingAdvice(KafkaTemplate<String, AuditDto> kafkaTemplate, 
 			VitalSignRepository vitalsignRepository) {
 		this.kafkaTemplate = kafkaTemplate;
 		this.vitalsignRepository = vitalsignRepository;
 	}
-	
+
 	/**
 	 * auditLogger is used to auditing the controller method.
 	 * @param joinPoint
@@ -50,15 +51,12 @@ public class AuditTrailLoggingAdvice {
 	 */
 	@Around("@annotation(com.module.vitalsignmodule.Advice.AuditTrailLogging)")
 	public Object auditLogger(ProceedingJoinPoint joinPoint) throws Throwable {
-		ObjectMapper mapper = new ObjectMapper();
 		AuditDto auditDto = new AuditDto();
 		String methodName = joinPoint.getSignature().getName();
 		Object[] array = joinPoint.getArgs();
 		long millis = System.currentTimeMillis();
 		java.sql.Date date = new java.sql.Date(millis);
 		java.sql.Time time = new java.sql.Time(millis);
-		String charToDel = "{[]}";
-		String pattern = "[" + Pattern.quote(charToDel) + "]";
 		VitalSignDto vitalsignDto;
 		int patientid;
 		Date checkupDate;
@@ -70,19 +68,84 @@ public class AuditTrailLoggingAdvice {
 			patientid = vitalsignDto.getPatientId();
 			checkupDate = vitalsignDto.getCheckupDate();
 		}
-		
-		Object oldValue = vitalsignRepository.findByPatientIdAndCheckupDate(patientid,checkupDate);
-		if(Objects.nonNull(oldValue)) {
-			auditDto.setOldValue(oldValue);
-		} else {
-			auditDto.setOldValue(StringUtils.EMPTY);
-		}
+		VitalSignDto oldValue = VitalSignConverter.convertToVitalSignDto(vitalsignRepository.findByPatientIdAndCheckupDate(patientid,checkupDate));
 		Object object = joinPoint.proceed();
-		auditDto.setUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+		auditDto.setUserName("Sanju");
 		auditDto.setServiceName("VitalSign");
 		auditDto.setRequest(methodName);
 		auditDto.setAction(StringUtils.EMPTY);
-		auditDto.setNewValue(object);
+		VitalSignDto newValue = (VitalSignDto) object;
+		DataDto dataDto = new DataDto();
+		List<String> fieldName = new ArrayList<>();
+		List<Object> oldList =  new ArrayList<>();
+		List<Object> newList =  new ArrayList<>();	
+		if(Objects.nonNull(oldValue)) {
+			if(!(oldValue.getUserName().equals(newValue.getUserName()))) {
+				fieldName.add("User Name");
+				oldList.add(oldValue.getUserName());
+				newList.add(newValue.getUserName());
+			}
+			if(!(oldValue.getCheckupDate().equals(newValue.getCheckupDate()))) {
+				fieldName.add("Checkup Date");
+				oldList.add(oldValue.getCheckupDate());
+				newList.add(newValue.getCheckupDate());
+			}
+			if(!(oldValue.getPulse() == newValue.getPulse())) {
+				fieldName.add("Pulse Rate");
+				oldList.add(oldValue.getPulse());
+				newList.add(newValue.getPulse());
+			}
+			if(!(oldValue.getBloodPressure() == newValue.getBloodPressure())) {
+				fieldName.add("Blood Pressure");
+				oldList.add(oldValue.getBloodPressure());
+				newList.add(newValue.getBloodPressure());
+			}
+			if(!(oldValue.getWeight() == newValue.getWeight())) {
+				fieldName.add("Weight");
+				oldList.add(oldValue.getWeight());
+				newList.add(newValue.getWeight());
+			}
+			if(!(oldValue.getTemperature() == newValue.getTemperature())) {
+				fieldName.add("Body Temperature");
+				oldList.add(oldValue.getTemperature());
+				newList.add(newValue.getTemperature());
+			}
+			if(!(oldValue.getBloodSugar() == newValue.getBloodSugar())) {
+				fieldName.add("Blood Sugar");
+				oldList.add(oldValue.getBloodSugar());
+				newList.add(newValue.getBloodSugar());
+			}
+			if(!(oldValue.getRespirationRate() == newValue.getRespirationRate())) {
+				fieldName.add("Respiration Rate");
+				oldList.add(oldValue.getRespirationRate());
+				newList.add(newValue.getRespirationRate());
+			}
+			dataDto.setFieldName(fieldName);
+			dataDto.setOldValue(oldList);
+			dataDto.setNewValue(newList);
+			auditDto.setData(dataDto);
+		}else {
+			fieldName.add("User Name");
+			newList.add(newValue.getUserName());
+			fieldName.add("Checkup Date");
+			newList.add(newValue.getCheckupDate());
+			fieldName.add("Pulse Rate");
+			newList.add(newValue.getPulse());
+			fieldName.add("Blood Pressure");
+			newList.add(newValue.getBloodPressure());
+			fieldName.add("Weight");
+			newList.add(newValue.getWeight());
+			fieldName.add("Body Temperature");
+			newList.add(newValue.getTemperature());
+			fieldName.add("Blood Sugar");
+			newList.add(newValue.getBloodSugar());
+			fieldName.add("Respiration Rate");
+			newList.add(newValue.getRespirationRate());
+			dataDto.setFieldName(fieldName);
+			dataDto.setOldValue(oldList);
+			dataDto.setNewValue(newList);
+			auditDto.setData(dataDto);
+		}
 		auditDto.setLogDate(date.toString());
 		auditDto.setLogTime(time.toString());
 		kafkaTemplate.send(KAFKA_TOPIC, auditDto);

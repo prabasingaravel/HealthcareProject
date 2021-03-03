@@ -16,6 +16,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,6 +48,7 @@ public class Patient implements Serializable {
 	private String patientLastName;
 
 	@Column(name = "patient_dob")
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private Date dob;
 	
 	@Column(name="age")
@@ -77,6 +79,7 @@ public class Patient implements Serializable {
 	private String country;
 	
 	@Column(name="registration_date")
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private Date regDate;
 	
 	@CreatedBy

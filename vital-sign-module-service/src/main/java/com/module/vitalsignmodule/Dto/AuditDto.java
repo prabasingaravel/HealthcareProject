@@ -25,9 +25,7 @@ public class AuditDto {
 
 	private String action;
 	
-	private Object oldValue;
-	
-	private Object newValue;
+	private DataDto data;
 
 	private String logDate;
 

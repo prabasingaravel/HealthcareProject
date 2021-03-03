@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.listener.ListenerExecutionFailedException;
 
-import com.module.healthcareaudit.Config.KafkaConfig;
 import com.module.healthcareaudit.Dto.AuditDto;
 import com.module.healthcareaudit.Model.Audit;
 import com.module.healthcareaudit.Repository.AuditRepository;
@@ -44,8 +43,8 @@ public class HealthcareAuditTrailApplication {
 	 */
 	@KafkaListener(topics = "Audit_Topic", groupId = "healthcare_group", containerFactory = "healthKafkaListenerContainerFactory")
 	public void consume(AuditDto auditDto) throws ParseException {
-		logger.info("Received Messasge: {}", auditDto);
 	    try {
+	    	logger.info("Received Messasge: {}", auditDto);
 	    	auditDto.setRequest(auditService.findRequestType(auditDto.getRequest()));
 			auditDto.setAction(auditService.findAction(auditDto.getRequest(),auditDto.getServiceName()));
 			Audit audit= AuditConverter.convertToAuditEntity(auditDto);
