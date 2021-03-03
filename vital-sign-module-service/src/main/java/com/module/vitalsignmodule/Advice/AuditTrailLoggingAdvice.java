@@ -1,6 +1,7 @@
 package com.module.vitalsignmodule.Advice;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -78,17 +79,23 @@ public class AuditTrailLoggingAdvice {
 		DataDto dataDto = new DataDto();
 		List<String> fieldName = new ArrayList<>();
 		List<Object> oldList =  new ArrayList<>();
-		List<Object> newList =  new ArrayList<>();	
+		List<Object> newList =  new ArrayList<>();
+		Calendar calendar = Calendar.getInstance();
 		if(Objects.nonNull(oldValue)) {
 			if(!(oldValue.getUserName().equals(newValue.getUserName()))) {
 				fieldName.add("User Name");
 				oldList.add(oldValue.getUserName());
 				newList.add(newValue.getUserName());
 			}
-			if(!(oldValue.getCheckupDate().equals(newValue.getCheckupDate()))) {
+			calendar.setTime(newValue.getCheckupDate());
+			String formatedNewCheackupDate = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DATE);
+
+			calendar.setTime(oldValue.getCheckupDate());
+			String formatedOldCheackupDate = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DATE);
+			if(!(formatedOldCheackupDate.equals(formatedNewCheackupDate))) {
 				fieldName.add("Checkup Date");
-				oldList.add(oldValue.getCheckupDate());
-				newList.add(newValue.getCheckupDate());
+				oldList.add(formatedOldCheackupDate);
+				newList.add(formatedNewCheackupDate);
 			}
 			if(!(oldValue.getPulse() == newValue.getPulse())) {
 				fieldName.add("Pulse Rate");
@@ -127,8 +134,10 @@ public class AuditTrailLoggingAdvice {
 		}else {
 			fieldName.add("User Name");
 			newList.add(newValue.getUserName());
+			calendar.setTime(newValue.getCheckupDate());
+			String formatedNewCheackupDate = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DATE);
 			fieldName.add("Checkup Date");
-			newList.add(newValue.getCheckupDate());
+			newList.add(formatedNewCheackupDate);
 			fieldName.add("Pulse Rate");
 			newList.add(newValue.getPulse());
 			fieldName.add("Blood Pressure");

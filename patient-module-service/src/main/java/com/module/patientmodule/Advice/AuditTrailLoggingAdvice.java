@@ -1,6 +1,7 @@
 package com.module.patientmodule.Advice;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -68,7 +69,8 @@ public class AuditTrailLoggingAdvice {
 		DataDto dataDto = new DataDto();
 		List<String> fieldName = new ArrayList<>();
 		List<Object> oldList =  new ArrayList<>();
-		List<Object> newList =  new ArrayList<>();
+		List<Object> newList =  new ArrayList<>(); 
+		Calendar calendar = Calendar.getInstance();
 		if(Objects.nonNull(oldValue)) {
 			if(!(oldValue.getPatientFirstName().equals(newValue.getPatientFirstName()))) {
 				fieldName.add("Patient First Name");
@@ -80,10 +82,15 @@ public class AuditTrailLoggingAdvice {
 				oldList.add(oldValue.getPatientLastName());
 				newList.add(newValue.getPatientLastName());
 			}
-			if(!(oldValue.getDob().equals(newValue.getDob()))) {
+			calendar.setTime(newValue.getDob());
+			String formatedNewDob = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DATE);
+
+			calendar.setTime(oldValue.getDob());
+			String formatedOldDob = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DATE);
+			if(!(formatedNewDob.equals(formatedOldDob))) {
 				fieldName.add("DOB");
-				oldList.add(oldValue.getDob().toString());
-				newList.add(newValue.getDob().toString());
+				oldList.add(formatedOldDob);
+				newList.add(formatedNewDob);
 			}
 			if(!(oldValue.getAge() == newValue.getAge())) {
 				fieldName.add("Age");
@@ -130,10 +137,15 @@ public class AuditTrailLoggingAdvice {
 				oldList.add(oldValue.getCountry());
 				newList.add(newValue.getCountry());
 			}
-			if(!(oldValue.getRegDate().equals(newValue.getRegDate()))) {
+			calendar.setTime(newValue.getRegDate());
+			String formatedNewRegDate = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DATE);
+
+			calendar.setTime(oldValue.getRegDate());
+			String formatedOldRegDate = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DATE);
+			if(!(formatedNewRegDate.equals(formatedOldRegDate))) {
 				fieldName.add("Register Date");
-				oldList.add(oldValue.getRegDate().toString());
-				newList.add(newValue.getRegDate().toString());
+				oldList.add(formatedOldRegDate);
+				newList.add(formatedNewRegDate);
 			}
 			dataDto.setFieldName(fieldName);
 			dataDto.setOldValue(oldList);
@@ -144,8 +156,10 @@ public class AuditTrailLoggingAdvice {
 			newList.add(newValue.getPatientFirstName());
 			fieldName.add("Patient Last Name");
 			newList.add(newValue.getPatientLastName());
+			calendar.setTime(newValue.getDob());
+			String formatedNewDob = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DATE);
 			fieldName.add("DOB");
-			newList.add(newValue.getDob());
+			newList.add(formatedNewDob);
 			fieldName.add("Age");
 			newList.add(newValue.getAge());
 			fieldName.add("Gender");
@@ -164,8 +178,10 @@ public class AuditTrailLoggingAdvice {
 			newList.add(newValue.getCity());
 			fieldName.add("Country");
 			newList.add(newValue.getCountry());
+			calendar.setTime(newValue.getRegDate());
+			String formatedNewRegDate = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DATE);
 			fieldName.add("Register Date");
-			newList.add(newValue.getRegDate());
+			newList.add(formatedNewRegDate);
 			dataDto.setFieldName(fieldName);
 			dataDto.setOldValue(oldList);
 			dataDto.setNewValue(newList);
