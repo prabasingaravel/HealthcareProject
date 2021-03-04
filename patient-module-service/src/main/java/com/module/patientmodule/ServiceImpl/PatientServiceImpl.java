@@ -2,10 +2,9 @@ package com.module.patientmodule.ServiceImpl;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -19,7 +18,6 @@ import com.module.patientmodule.Repository.ElasticRepository;
 import com.module.patientmodule.Repository.PatientRepository;
 import com.module.patientmodule.Service.PatientService;
 import com.module.patientmodule.Util.PatientConverter;
-import com.module.patientmodule.Util.QueryUtil;
 
 /**
  * PatientServiceImpl which implements PatientService.
@@ -51,10 +49,8 @@ public class PatientServiceImpl implements PatientService{
 	
 	@Override
 	public List<PatientDto> getAllPatient(){
-		QueryUtil queryUtil = new QueryUtil();
-		EntityManager manager = entityManager.createEntityManager();
-		Query query = manager.createQuery(queryUtil.createQueryForAll());
-		return query.getResultList();
+		return patientRepository.findAll().stream().map(patient -> PatientConverter.convertToPatientDto(patient))
+				.collect(Collectors.toList());
 	}
 	
 	@Override

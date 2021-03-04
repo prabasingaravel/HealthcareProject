@@ -50,7 +50,8 @@ public class HealthcareAuditTrailApplication {
 			Audit audit= AuditConverter.convertToAuditEntity(auditDto);
 			auditRepository.save(audit);
 	    } catch (Exception e) {
-	        throw new ListenerExecutionFailedException(e.getLocalizedMessage(), e);
+	    	throw new RuntimeException("Failed");
+//	        throw new ListenerExecutionFailedException(e.getLocalizedMessage(), e);
 	    }
 	}
 	

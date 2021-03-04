@@ -59,7 +59,7 @@ public class PatientConverter {
 		patientDto.setAge(patient.getAge());
 		patientDto.setGender(patient.getGender());
 		patientDto.setMaritalStatus(patient.getMaritalStatus());
-		patientDto.setContactNo(patientDto.getContactNo());
+		patientDto.setContactNo(patient.getContactNo());
 		patientDto.setEmailId(patient.getEmailId());
 		patientDto.setAddress(patient.getAddress());
 		patientDto.setPostalCode(patient.getPostalCode());

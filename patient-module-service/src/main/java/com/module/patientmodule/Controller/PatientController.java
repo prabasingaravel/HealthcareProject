@@ -61,7 +61,6 @@ public class PatientController {
 	 */
 	@ApiOperation(value = "Fetch Patient Detail", response = Iterable.class)
 	@GetMapping(path="/",produces= {"application/json"})
-	@Cacheable(value = "patient")
 	@TrackExecutionTime
 	@TrackLogging
 	public List<PatientDto> getAllPatient() {

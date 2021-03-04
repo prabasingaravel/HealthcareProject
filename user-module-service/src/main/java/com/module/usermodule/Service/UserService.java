@@ -26,13 +26,6 @@ public interface UserService {
 	public List<UserDto> getAllUser();
 	
 	/**
-	 * getUserByName method is used to get user detail based on user name.
-	 * @param userName
-	 * @return UserDto
-	 */
-	public UserDto getUserByName(String username);
-	
-	/**
 	 * deleteUser method is used to delete user detail based on user id.
 	 * @param userId
 	 * @return String
@@ -53,4 +46,11 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	public String tokenInfo(String username, String password) throws Exception;
+
+	/**
+	 * getUserById method is used to get user detail based on user id.
+	 * @param userId
+	 * @return UserDto
+	 */
+	public UserDto getUserById(long userId);
 }

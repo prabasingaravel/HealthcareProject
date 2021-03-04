@@ -76,16 +76,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	@Override
-	public UserDto getUserByName(String username) {
-		User user = userRepository.findByUserName(username);
-		if(Objects.nonNull(user)) {
-			return UserConverter.convertToUserDto(user);
-		}else {
-			throw new ResourceNotFoundException("User Information not found for the name " + username);
-		}
-	}
-
-	@Override
 	public List<UserDto> getAllUser() {
 		return userRepository.findAll().stream().map(user -> UserConverter.convertToUserDto(user))
 				.collect(Collectors.toList());
@@ -110,5 +100,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		}else {
 			throw new ResourceNotFoundException("User Information not found for the name " + userDto.getUserName());
 		}
+	}
+
+	@Override
+	public UserDto getUserById(long userId) {
+		return UserConverter.convertToUserDto(userRepository.findByUserId(userId));
 	}
 }

@@ -54,18 +54,18 @@ public class UserController {
 	public UserDto addUser(@RequestBody UserDto userDto) {
 		return userService.addUser(userDto);
 	}
-
+	
 	/**
-	 * getUserByName method is used to get user detail based on user name.
-	 * @param userName
+	 * getUserById method is used to get user detail based on user id.
+	 * @param userId
 	 * @return UserDto
 	 */
-	@GetMapping(path="/{userName}",produces= {"application/json"})
+	@GetMapping(path="/{userId}",produces= {"application/json"})
 	@ApiOperation(value = "Fetch Specific User Detail", response = UserDto.class)
 	@TrackExecutionTime
 	@TrackLogging
-	public UserDto getUserByName(@PathVariable String userName) {
-		return userService.getUserByName(userName);
+	public UserDto getUserById(@PathVariable long userId) {
+		return userService.getUserById(userId);
 	}
 	
 	/**
