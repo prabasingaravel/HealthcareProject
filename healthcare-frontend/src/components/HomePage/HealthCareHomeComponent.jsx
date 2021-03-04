@@ -6,40 +6,36 @@ class HealthCareHomeComponent extends Component {
     render() {
         return (
             <div>
-                <Container maxWidth="sm">
+                <Container>
                     <div>
                         <Typography variant="h3" gutterBottom>
                             Home Page
                         </Typography>
-                        <Box mt={5}></Box>
+                        <Box mt={3}></Box>
                         <div>
                             <Button
                                 variant="contained"
-                                color="primary"
                                 size="small"
                                 href="http://localhost:3000/users">
                                 User Module
                             </Button>
-                            <Box mt={5}></Box>
+                            <Box mt={3}></Box>
                             <Button
                                 variant="contained"
-                                color="primary"
                                 size="small"
-                                href="http://localhost:3000/users">
+                                href="http://localhost:3000/patients">
                                 Patient Module
                             </Button>
-                            <Box mt={5}></Box>
+                            <Box mt={3}></Box>
                             <Button
                                 variant="contained"
-                                color="primary"
                                 size="small"
                                 href="http://localhost:3000/users">
                                 Vital Sign Module
                             </Button>
-                            <Box mt={5}></Box>
+                            <Box mt={3}></Box>
                             <Button
                                 variant="contained"
-                                color="primary"
                                 size="small"
                                 href="http://localhost:3000/audit">
                                 Audit Trail

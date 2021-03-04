@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Typography, Box } from '@material-ui/core';
-import UserService from '../../services/UserService';
+import PatientService from '../../services/PatientService';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -16,30 +16,30 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-class UserListComponent extends Component {
+class PatientListComponent extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            users: []
+            patients: []
         }
 
-        this.updateUser = this.updateUser.bind(this);
-        this.deleteUser = this.deleteUser.bind(this);
+        this.updatePatient = this.updatePatient.bind(this);
+        this.deletePatient = this.deletePatient.bind(this);
     }
 
     componentDidMount() {
-        UserService.getAllUser().then((res) => {
-            this.setState({ users: res.data });
+        PatientService.getAllPatients().then((res) => {
+            this.setState({ patients: res.data });
         })
     }
 
-    updateUser(id) {
-        this.props.history.push(`/update-user/${id}`);
+    updatePatient(id) {
+        this.props.history.push(`/update-patient/${id}`);
     }
 
-    deleteUser(id) {
-        UserService.deleteUser(id).then((res) => {
+    deletePatient(id) {
+        PatientService.deletePatient(id).then((res) => {
             this.componentDidMount();
         });
     }
@@ -59,48 +59,54 @@ class UserListComponent extends Component {
                         Back
                         </Button>
                 </Container>
-                <Container maxWidth="sm">
+                <Container maxWidth="md">
                     <Typography variant="h3" gutterBottom>
-                        User List
+                        Patient List
                 </Typography>
                         <div className="addIcon">
                             <Tooltip title="Add" aria-label="add">
-                                <Fab color="primary" aria-label="add" href="http://localhost:3000/add-user">
+                                <Fab color="primary" aria-label="add" href="http://localhost:3000/add-patient">
                                     <AddIcon />
                                 </Fab>
                             </Tooltip>
                         </div>
-                    <Box mt={5}>
+                    <Box mt={3}>
                         <TableContainer component={Paper}>
                             <Table aria-label="simple table">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell align="center" width = "15%">User ID</TableCell>
-                                        <TableCell align="center">User Name</TableCell>
-                                        <TableCell align="center">Role ID</TableCell>
+                                        <TableCell align="center">Patient ID</TableCell>
+                                        <TableCell align="center">First Name</TableCell>
+                                        <TableCell align="center">Last Name</TableCell>
+                                        <TableCell align="center">Age</TableCell>
+                                        <TableCell align="center">Gender</TableCell>
+                                        <TableCell align="center">Mobile Number</TableCell>
                                         <TableCell align="center">Actions</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {this.state.users.map((user) => (
-                                        <TableRow key={user.userId}>
-                                            <TableCell align="right">{user.userId}</TableCell>
-                                            <TableCell align="left">{user.userName}</TableCell>
-                                            <TableCell align="right">{user.roleId}</TableCell>
+                                    {this.state.patients.map((patient) => (
+                                        <TableRow key={patient.patientId}>
+                                            <TableCell align="right">{patient.patientId}</TableCell>
+                                            <TableCell align="left">{patient.patientFirstName}</TableCell>
+                                            <TableCell align="left">{patient.patientLastName}</TableCell>
+                                            <TableCell align="right">{patient.age}</TableCell>
+                                            <TableCell align="left">{patient.gender}</TableCell>
+                                            <TableCell align="right">{patient.contactNo}</TableCell>
                                             <TableCell align="right">
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
                                                     size="small"
                                                     startIcon={<EditIcon />}
-                                                    onClick={() => this.updateUser(user.userId)}>
+                                                    onClick={() => this.updatePatient(patient.patientId)}>
                                                 </Button>
                                                 <Button
                                                     variant="contained"
                                                     color="secondary"
                                                     size="small"
                                                     startIcon={<DeleteIcon />}
-                                                    onClick={() => this.deleteUser(user.userId)}>
+                                                    onClick={() => this.deletePatient(patient.patientId)}>
                                                 </Button>
                                             </TableCell>
                                         </TableRow>
@@ -116,4 +122,4 @@ class UserListComponent extends Component {
     }
 }
 
-export default UserListComponent;
+export default PatientListComponent;

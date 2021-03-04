@@ -5,6 +5,9 @@ import AddUserComponent from './components/UserModule/AddUserComponent';
 import UpdateUserComponent from './components/UserModule/UpdateUserComponent';
 import UserListComponent from './components/UserModule/UserListComponent';
 import HealthcareAudit from './components/AuditTrail/HealthcareAudit.js';
+import AddPatientComponent from "./components/PatientModule/AddPatientComponent";
+import PatientListComponent from "./components/PatientModule/PatientListComponent";
+import UpdatePatientComponent from "./components/PatientModule/UpdatePatientComponent";
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
               <Route path = "/add-user" component = {AddUserComponent}></Route>
               <Route path = "/update-user/:id" component = {UpdateUserComponent}></Route>
               <Route path = "/audit" component = {HealthcareAudit}></Route>
+              <Route path = "/patients" component = {PatientListComponent}></Route>
+              <Route path = "/add-patient" component = {AddPatientComponent}></Route>
+              <Route path = "/update-patient/:id" component = {UpdatePatientComponent}></Route>
             </Switch>
           </div>
       </Router>
