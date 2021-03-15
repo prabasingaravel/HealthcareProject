@@ -1,10 +1,2 @@
-cloud:
-  aws:
-    credentials:
-      access-key: AKIAISI67UXVTIYM24EQ
-      secret-key: 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
-    region:      static: us-east-2
-    stack:      auto: false
-       
-   
-server:  port: 8085
+server:
+  port: 8085
